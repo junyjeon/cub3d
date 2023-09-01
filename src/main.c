@@ -6,13 +6,13 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:56:35 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/01 20:01:24 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/01 23:15:08 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/cub3d.h"
 
-int ft_putendl_fd(char *s, int fd)
+int ft_put_error(int fd, char *s)
 {
     write(fd, s, ft_strlen(s));
     write(fd, "\n", 1);
