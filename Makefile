@@ -6,7 +6,7 @@
 #    By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/11 19:23:49 by junyojeo          #+#    #+#              #
-#    Updated: 2023/09/01 21:00:18 by junyojeo         ###   ########.fr        #
+#    Updated: 2023/09/03 02:08:56 by junyojeo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,17 +36,17 @@ BUILD_DIR	=	bulid
 
 SRC		=	$(addprefix $(SRC_DIR)/, main.c \
 			error/error.c \
-			parsing/parse_color.c \
-			parsing/parse_map.c \
-			parsing/map_setting.c \
-			parsing/parse.c \
-			parsing/validation.c \
+			parse/parse_color.c \
+			parse/parse_map.c \
+			parse/map_setting.c \
+			parse/parse.c \
+			parse/validation.c \
 			utils/util.c \
-			raycasting/cub3d_init.c \
-			raycasting/deal_key.c \
-			raycasting/ray_cal.c \
-			raycasting/ray_render.c \
-			raycasting/move.c \
+			ray/cub3d_init.c \
+			ray/deal_key.c \
+			ray/ray_cal.c \
+			ray/ray_render.c \
+			ray/move.c \
 
 OBJ		=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 

@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:56:35 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/01 23:15:08 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/03 03:45:54 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ int main(int argc, char **argv)
     game.map = &map;
     ft_memset(&map, 0, sizeof(t_map));
     parse(&map, argv[1]);
+    printf(&map);
 }

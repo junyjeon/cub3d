@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/01 21:01:45 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/03 03:51:45 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@
 # include <string.h>
 
 # define FALSE  0
-# define TRUE   1
+# define TRUE  	1
+
+# define EMPTY_LINE -2
 # define ERROR      -1
 # define SUCCESS    1
 
@@ -33,6 +35,7 @@
 # define X_EVENT_KEY_UP		3
 # define X_EVENT_KEY_EXIT   17
 
+/* key */
 # define KEY_LEFT       123
 # define KEY_RIGHT      124
 # define KEY_UP         126
@@ -44,16 +47,22 @@
 # define KEY_W			13
 # define KEY_F			3
 
-/* type */
+/* texture */
 # define NO     0
 # define SO     1
 # define WE     2
 # define EA     3
+
+/* color */
 # define FLOOR  4
 # define CEIL   5
+
+/* map */
 # define MAP    6
 
-# define LAST           0
+/* etc */
+# define END	7
+
 # define NO_COLOR       -1
 # define SCREEN_WIDTH	640
 # define SCREEN_HEIGHT	480
@@ -62,6 +71,7 @@
 # define R_UNIT			0.1
 # define BODY_UNIT		0.1	
 
+/* pixel */
 typedef struct s_img
 {
 	void			*img;
@@ -71,6 +81,7 @@ typedef struct s_img
 	int				endian;
 }           t_img;
 
+/* player */
 typedef struct s_player
 {
 	double	px;
@@ -80,6 +91,7 @@ typedef struct s_player
 	char	starting_sight;
 }           t_player;
 
+/* texture */
 typedef struct s_texture
 {
 	char			*tex_path_malloc;
@@ -89,6 +101,7 @@ typedef struct s_texture
 	int				height;
 }           t_texture;
 
+/* map */
 typedef struct s_map
 {
 	t_player	player;
@@ -101,6 +114,7 @@ typedef struct s_map
 	int			col;
 }           t_map;
 
+/* Structure for the game state */
 typedef struct s_game
 {
 	void	*mlx;
@@ -154,7 +168,5 @@ typedef struct s_game
 	int		gridw;
 	int		gridh;
 }           t_game;
-
-
 
 #endif
