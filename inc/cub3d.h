@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/03 20:52:28 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/04 05:53:40 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,11 +173,10 @@ typedef struct s_game
 }           t_game;
 
 void	free_all(t_map *map);
-void	free_rgb(char **split_rgb);
+void	free_split(char **split);
 void	exit_error(t_map *map, char *message);
 void    parse(t_map *map, char *argv);
 int		ft_put_error(int fd, char *s);
 int		parse_color(t_map *map, char *line, int validate);
-bool	isMapClosed(t_map *map, int rows, int cols);
 
 #endif

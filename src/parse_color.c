@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 19:44:17 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/03 19:44:35 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/04 06:01:22 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ int    parse_color(t_map *map, char *line, int validate)
     color = ft_atoi(rgb[0]) * 256 * 256 + ft_atoi(rgb[1]) * 256 + ft_atoi(rgb[2]);
     if (color <= 0 || color > 0xFFFFFF)
         exit_error(map, "Invalid Color");
-    free_rgb(rgb);
+    free_split(rgb);
     return (color);
 }

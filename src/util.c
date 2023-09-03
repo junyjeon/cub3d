@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 03:43:21 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/03 19:37:43 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/04 05:53:48 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ int ft_put_error(int fd, char *s)
     exit(1);
 }
 
-void	free_rgb(char **split_rgb)
+void	free_split(char **split)
 {
 	int i;
 
-	if (split_rgb)
+	if (split)
 	{
 		i = -1;
-		while (split_rgb[++i])
+		while (split[++i])
 		{
-			free(split_rgb[i]);
-			split_rgb[i] = NULL;
+			free(split[i]);
+			split[i] = NULL;
 		}
-		free(split_rgb);
-		split_rgb = NULL;
+		free(split);
+		split = NULL;
 	}
 }
 
