@@ -6,7 +6,7 @@
 #    By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/11 19:23:49 by junyojeo          #+#    #+#              #
-#    Updated: 2023/09/03 19:47:41 by junyojeo         ###   ########seoul.kr   #
+#    Updated: 2023/09/04 06:04:26 by junyojeo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ LDFLAGS		=	-L$(LIBFT_DIR) -lft -L$(GNL_DIR) -lGNL -L$(MLX_DIR) -lmlx
 SRC_DIR		=	src
 BUILD_DIR	=	bulid
 
-SRC		=	$(addprefix $(SRC_DIR)/, main.c parse.c parse_color.c util.c)
+SRC		=	$(addprefix $(SRC_DIR)/, main.c parse.c parse_map.c parse_color.c utils.c)
 			
 OBJ		=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 

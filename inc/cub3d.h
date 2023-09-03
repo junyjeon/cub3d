@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/04 05:53:40 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/04 06:05:01 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,11 +172,16 @@ typedef struct s_game
 	int		gridh;
 }           t_game;
 
+
+/* parse */
+void    parse(t_map *map, char *argv);
+void	parse_map(t_map *map);
+int		parse_color(t_map *map, char *line, int validate);
+
+/* utils */
+int		ft_put_error(int fd, char *s);
 void	free_all(t_map *map);
 void	free_split(char **split);
 void	exit_error(t_map *map, char *message);
-void    parse(t_map *map, char *argv);
-int		ft_put_error(int fd, char *s);
-int		parse_color(t_map *map, char *line, int validate);
 
 #endif
