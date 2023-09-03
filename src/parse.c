@@ -6,46 +6,65 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:01:53 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/03 04:08:43 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/03 20:52:35 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/cub3d.h"
+#include "../inc/cub3d.h"
 
-static char    *save_tmp_map(char *s1, char *s2)
+static char    *join_map_data(char *map_data, char *s2)
 {
-    char    *temp;
+    char    *join_map;
     char    *result;
 
-    if (s1 == NULL)
-        temp = ft_strdup("");
+    if (map_data == NULL)
+        join_map = ft_strdup("");
     else
-        temp = ft_strjoin(s1, "\n");
-    result = ft_strjoin(temp, s2);
-    if (s1 != NULL)
-        free(s1);
-    free(temp);
+        join_map = ft_strjoin(map_data, "\n");
+    result = ft_strjoin(join_map, s2);
+    if (map_data != NULL)
+        free(map_data);
+    free(join_map);
     return (result);
 }
 
-static int    parse_color(t_map *map, char *line, int validate)
+static void	parse_map(t_map *map)
 {
-    int     color;
-    char    **rgb;
+	int		row;
+	int		col;
+	int		i;
 
-    rgb = ft_split(line + 1, ',');
-    if (rgb[0] == NULL || rgb[1] == NULL || rgb[2] == NULL || rgb[3] != NULL)
-        exit_error(map, "Invalid Color");
-    if (!ft_isdigit(rgb[0]) || !ft_isdigit(rgb[1]) || !ft_isdigit(rgb[2]))
-        exit_error(map, "Invalid Color");
-    color = ft_atoi(rgb[0]) * 256 * 256 + ft_atoi(rgb[1]) * 256 + ft_atoi(rgb[2]);
-    if (color <= 0 || color > 0xFFFFFF)
-        exit_error(map, "Invalid Color");
-    free_split(rgb);
-    return (color);
+	map->map_malloc = ft_split(map->tmp_map_malloc, '\n');
+	if (map->map_malloc == NULL)
+		exit_error(map, NULL);
+	row = -1;
+	col = 0;
+	while (map->map_malloc[++row] != NULL)
+	{
+		if ((int)ft_strlen(map->map_malloc[row]) > col)
+			col = (int)ft_strlen(map->map_malloc[row]);
+		i = -1;
+		while (map->map_malloc[row][++i])
+		{
+			if (map->map_malloc[row][i] == 'N' || map->map_malloc[row][i] == 'S'\
+			 || map->map_malloc[row][i] == 'E' || map->map_malloc[row][i] == 'W')
+			{
+				if (map->player.starting_sight)
+					exit_error(map, "Invalid Player Data");
+				else
+					map->player.starting_sight = map->map_malloc[row][i];
+			}
+		}
+	}
+	if (map->player.starting_sight == '\0')
+		exit_error(map, "Invalid Player Data");
+	map->row = row;
+	map->col = col; //최대길이
+	free(map->tmp_map_malloc);
+	map->tmp_map_malloc = NULL;
 }
 
-static void save_map(t_map *map, int validate, char *line)
+static void	save_map(t_map *map, int validate, char *line)
 {
     if (validate == NO)
         map->tex[NO].tex_path_malloc = ft_strdup(line + 3);
@@ -60,33 +79,16 @@ static void save_map(t_map *map, int validate, char *line)
     else if (validate == CEIL)
         map->ceil_color = parse_color(map, line, CEIL);
     else if (validate == MAP)
-        map->tmp_map_malloc = save_tmp_map(map->tmp_map_malloc, line);
+        map->tmp_map_malloc = join_map_data(map->tmp_map_malloc, line);
     else if (validate == EMPTY_LINE)
-        map->tmp_map_malloc = save_tmp_map(map->tmp_map_malloc, line);
-    else if (validate == END)
-        parse_map(map);
+        map->tmp_map_malloc = join_map_data(map->tmp_map_malloc, line);
     else if (validate == ERROR)
         exit_error(map, "Invalid Data");
+	else
+        exit_error(map, "Unexpected validate value");
 }
 
-static void process_map_data(t_map *map, int validate, char *line)
-{
-    if (validate == NO || validate == SO || validate == WE || validate == EA
-        || validate == FLOOR || validate == CEIL)
-        save_map(map, validate, line);
-    else if (validate == MAP)
-        save_map(map, MAP, line);
-    else if (validate == EMPTY_LINE)
-        save_map(map, EMPTY_LINE, line);
-    else if (validate == END)
-        save_map(map, END, line);
-    else if (validate == ERROR)
-        exit_free(map, "Invalid Data");
-    else
-        exit_free(map, "Unexpected validate value");
-}
-
-static int    validate_map_line(char *line)
+static int	validate_map_line(char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		return (NO);
@@ -100,7 +102,7 @@ static int    validate_map_line(char *line)
 		return (FLOOR);
 	if (ft_strncmp(line, "C ", 2) == 0)
 		return (CEIL);
-    if (ft_strchr("01EWSN", line[0]) != NULL)
+    if (ft_strchr("01EWSN ", line[0]) != NULL)
         return (MAP);
     if (line[0] == '\n')
         return (EMPTY_LINE);
@@ -121,6 +123,24 @@ static int is_argv_valid(t_map *map, char *argv)
     return (fd);
 }
 
+bool isMapClosed(t_map *map, int maxRow, int maxCol) {
+    // Check top and bottom rows
+    for (int j = 0; j < maxCol; j++) {
+        if (map->map_malloc[0][j] == '0' || map->map_malloc[maxRow-1][j] == '0') {
+            return false;
+        }
+    }
+
+    // Check left and right columns
+    for (int i = 0; i < maxRow; i++) {
+        if (map->map_malloc[i][0] == '0' || map->map_malloc[i][strlen(map->map_malloc[i])-1] == '0') {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 void    parse(t_map *map, char *argv)
 {
     int     fd;
@@ -130,14 +150,18 @@ void    parse(t_map *map, char *argv)
     map->floor_color = NO_COLOR;
     fd = is_argv_valid(map, argv);
     line = get_next_line(fd);
-    while (line)
+	line[ft_strlen(line) - 1] = '\0';
+	// Todo. dont parse each line. parse all line and split them with \n
+	while (line)
     {
-        process_map_data(map, validate_map_line(line), line);
+        save_map(map, validate_map_line(line), line);
         free(line);
         line = get_next_line(fd);
-        if (line == NULL)
-           exit_error(map, "Error reading file");
+		if (!line) break;
+		line[ft_strlen(line) - 1] = '\0';
     }
+    parse_map(map);
+	printf("%d\n", isMapClosed(map, map->row, map->col));
     free(line);
     close(fd);
 }

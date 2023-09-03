@@ -6,11 +6,35 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 03:43:21 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/03 03:43:34 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/03 19:37:43 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/cub3d.h"
+#include "../inc/cub3d.h"
+
+int ft_put_error(int fd, char *s)
+{
+    write(fd, s, ft_strlen(s));
+    write(fd, "\n", 1);
+    exit(1);
+}
+
+void	free_rgb(char **split_rgb)
+{
+	int i;
+
+	if (split_rgb)
+	{
+		i = -1;
+		while (split_rgb[++i])
+		{
+			free(split_rgb[i]);
+			split_rgb[i] = NULL;
+		}
+		free(split_rgb);
+		split_rgb = NULL;
+	}
+}
 
 void	free_all(t_map *map)
 {
@@ -40,11 +64,11 @@ void	free_all(t_map *map)
 	}
 }
 
-void	exit_error(t_map *map, char *message)
+void	exit_error(t_map *map, char *s)
 {
 	ft_putendl_fd("ERROR", 2);
-	if (message)
-		ft_putendl_fd(message, 2);
+	if (s)
+		ft_putendl_fd(s, 2);
 	free_all(map);
 	exit(1);
 }

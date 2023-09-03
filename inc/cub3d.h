@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/03 03:51:45 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/03 20:52:28 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include "../lib/minilibx_opengl_20191021/mlx.h"
 # include <math.h>
 # include <string.h>
+
+# define PI	3.14159
 
 # define FALSE  0
 # define TRUE  	1
@@ -62,6 +64,7 @@
 
 /* etc */
 # define END	7
+# define SPACE_BAR 8
 
 # define NO_COLOR       -1
 # define SCREEN_WIDTH	640
@@ -168,5 +171,13 @@ typedef struct s_game
 	int		gridw;
 	int		gridh;
 }           t_game;
+
+void	free_all(t_map *map);
+void	free_rgb(char **split_rgb);
+void	exit_error(t_map *map, char *message);
+void    parse(t_map *map, char *argv);
+int		ft_put_error(int fd, char *s);
+int		parse_color(t_map *map, char *line, int validate);
+bool	isMapClosed(t_map *map, int rows, int cols);
 
 #endif
