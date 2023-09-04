@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:01:53 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/04 14:36:34 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:04:08 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,15 @@ static int	validate_map_line(char *line)
     return (ERROR);
 }
 
-static int is_argv_valid(t_map *map, char *argv)
+static void process_lines(t_map *map, char **lines)
 {
-    int     fd;
+    int i = -1;
 
-    if (ft_strncmp(argv + ft_strlen(argv) - 4, ".cub", 4))
-        return (ft_put_error(2, "Error"));
-    fd = open(argv, O_RDONLY);
-    if (fd == -1)
-        return (ft_put_error(2, "Error"));
-    return (fd);
+    while (lines[++i])
+    {
+        save_map(map, validate_map_line(lines[i]), lines[i]);
+        free(lines[i]);
+    }
 }
 
 static void read_file(t_map *map, int fd, char **all_lines)
@@ -98,17 +97,19 @@ static void read_file(t_map *map, int fd, char **all_lines)
         free(line);
         line = get_next_line(fd);
     }
+    free(line);
 }
 
-static void process_lines(t_map *map, char **lines)
+static int is_argv_valid(t_map *map, char *argv)
 {
-    int i = -1;
+    int     fd;
 
-    while (lines[++i])
-    {
-        save_map(map, validate_map_line(lines[i]), lines[i]);
-        free(lines[i]);
-    }
+    if (ft_strncmp(argv + ft_strlen(argv) - 4, ".cub", 4))
+        return (ft_put_error(2, "Error"));
+    fd = open(argv, O_RDONLY);
+    if (fd == -1)
+        return (ft_put_error(2, "Error"));
+    return (fd);
 }
 
 void parse(t_map *map, char *argv)
