@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:01:53 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/04 06:07:12 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:36:34 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,26 +87,45 @@ static int is_argv_valid(t_map *map, char *argv)
     return (fd);
 }
 
-void    parse(t_map *map, char *argv)
+static void read_file(t_map *map, int fd, char **all_lines)
 {
-    int     fd;
-    char    *line;
+    char *line;
+
+    line = get_next_line(fd);
+    while (line)
+    {
+        *all_lines = join_map_data(*all_lines, line);
+        free(line);
+        line = get_next_line(fd);
+    }
+}
+
+static void process_lines(t_map *map, char **lines)
+{
+    int i = -1;
+
+    while (lines[++i])
+    {
+        save_map(map, validate_map_line(lines[i]), lines[i]);
+        free(lines[i]);
+    }
+}
+
+void parse(t_map *map, char *argv)
+{
+    int fd;
+    char *all_lines;
+    char **lines;
 
     map->ceil_color = NO_COLOR;
     map->floor_color = NO_COLOR;
+    all_lines = NULL;
     fd = is_argv_valid(map, argv);
-    line = get_next_line(fd);
-	line[ft_strlen(line) - 1] = '\0';
-	// Todo. dont parse each line. parse all line and split them with \n
-	while (line)
-    {
-        save_map(map, validate_map_line(line), line);
-        free(line);
-        line = get_next_line(fd);
-		if (!line) break;
-		line[ft_strlen(line) - 1] = '\0';
-    }
+    read_file(map, fd, &all_lines);
+    lines = ft_split(all_lines, '\n');
+    free(all_lines);
+    process_lines(map, lines);
+    free(lines);
     parse_map(map);
-    free(line);
     close(fd);
 }

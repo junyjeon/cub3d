@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:03:27 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/04 06:08:09 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:39:19 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,14 @@ void	parse_map(t_map *map)
 	row = -1;
 	col = 0;
 	while (map->map_malloc[++row] != NULL)
-	{
 		parse_map_line(map, row, &col);
-	}
 	if (map->player.starting_sight == '\0')
 		exit_error(map, "Invalid Player Data");
 	map->row = row;
 	map->col = col;
-
 	visited = create_visited(map, map->row, map->col);
 	dfs(map->player.px, map->player.py, map, visited);
-
-	for (int i = 0; i < map->row; i++)
-		free(visited[i]);
-	free(visited);
-
+	free_split(visited);
 	free_split(map->map_malloc);
 	free(map->tmp_map_malloc);
 	map->tmp_map_malloc = NULL;
