@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 03:43:21 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/04 05:53:48 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/05 20:48:13 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int ft_put_error(int fd, char *s)
+int ft_put_err(int fd, char *s)
 {
     write(fd, s, ft_strlen(s));
     write(fd, "\n", 1);
     exit(1);
+}
+
+void	err(t_map *map, char *s)
+{
+	ft_putendl_fd("ERROR", 2);
+	if (s)
+		ft_putendl_fd(s, 2);
+	free_all(map);
+	exit(1);
 }
 
 void	free_split(char **split)
@@ -62,13 +71,4 @@ void	free_all(t_map *map)
 			map->tex[i].tex_path_malloc = NULL;
 		}
 	}
-}
-
-void	exit_error(t_map *map, char *s)
-{
-	ft_putendl_fd("ERROR", 2);
-	if (s)
-		ft_putendl_fd(s, 2);
-	free_all(map);
-	exit(1);
 }

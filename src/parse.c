@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:01:53 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/04 16:04:08 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/05 20:48:46 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static void	save_map(t_map *map, int validate, char *line)
     else if (validate == EMPTY_LINE)
         map->tmp_map_malloc = join_map_data(map->tmp_map_malloc, line);
     else if (validate == ERROR)
-        exit_error(map, "Invalid Data");
+        err(map, "Invalid Data");
 	else
-        exit_error(map, "Unexpected validate value");
+        err(map, "Unexpected validate value");
 }
 
 static int	validate_map_line(char *line)
@@ -105,10 +105,10 @@ static int is_argv_valid(t_map *map, char *argv)
     int     fd;
 
     if (ft_strncmp(argv + ft_strlen(argv) - 4, ".cub", 4))
-        return (ft_put_error(2, "Error"));
+        return (ft_put_err(2, "Error"));
     fd = open(argv, O_RDONLY);
     if (fd == -1)
-        return (ft_put_error(2, "Error"));
+        return (ft_put_err(2, "Error"));
     return (fd);
 }
 

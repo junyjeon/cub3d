@@ -6,6 +6,7 @@
  - 맵이 바르지 못한 경우(뭔 경우임?)
  NO SO WE EA FLOOR CEIL MAP이 아닌경우. 0이나 NULL
  - 레이캐스팅
+ 
 
 아이디어
 - 레이캐스팅
@@ -29,6 +30,11 @@
  - 벡터를 회전하려면 회전행렬을 곱함.
  [cos(a) - sin(a)]
  [sin(a) cos(a)]
- 
+	- 구성요소
+		플레이어 = px, py;
+		방향 벡터(dir) = px, py를 같은 값으로 곱
+		카메라 평면 벡터(pos)
+		DDA로 광선을 보내서 닿은 곳의 좌표를 sqrt(1 + (rayY * rayY / rayX * rayX))공식..?을 통해 연산한 뒤 높이 정한 걸 width만큼 반복하기
+		수직거리 구하기 ???
 
 parse_map보기

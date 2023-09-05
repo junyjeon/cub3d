@@ -6,32 +6,20 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:03:27 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/04 14:39:19 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/05 20:12:00 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static void dfs(int x, int y, t_map *map, int **visited) {
-    if (x < 0 || y < 0 || x >= map->row || y >= map->col || map->map_malloc[y][x] == '1')
-        return;
-    if (visited[y][x])
-        return;
-    visited[y][x] = 1;
-    dfs(x + 1, y, map, visited);
-    dfs(x - 1, y, map, visited);
-    dfs(x, y + 1, map, visited);
-    dfs(x, y - 1, map, visited);
-}
-
 static void	check_player_data(t_map *map, int row, int i)
 {
-	if (map->player.starting_sight)
-		exit_error(map, "Invalid Player Data");
+	if (map->player.start_sight)
+		err(map, "Invalid Player Data");
 	else
-		map->player.starting_sight = map->map_malloc[row][i];
-	map->player.px = i;
-	map->player.py = row;
+		map->player.start_sight = map->map_malloc[row][i];
+	map->player.posX = i;
+	map->player.posY = row;
 }
 
 static int **create_visited(t_map *map, int row, int col)
@@ -41,7 +29,7 @@ static int **create_visited(t_map *map, int row, int col)
 
 	visited = (int **)malloc(sizeof(int *) * row);
 	if (!visited)
-		exit_error(map, "Memory allocation failed");
+		err(map, "Memory allocation failed");
 	for (i = 0; i < row; i++)
 	{
 		visited[i] = (int *)malloc(sizeof(int) * col);
@@ -50,7 +38,7 @@ static int **create_visited(t_map *map, int row, int col)
 			while (i--)
 				free(visited[i]);
 			free(visited);
-			exit_error(map, "Memory allocation failed");
+			err(map, "Memory allocation failed");
 		}
 		memset(visited[i], 0, sizeof(int) * col);
 	}
@@ -82,17 +70,17 @@ void	parse_map(t_map *map)
 
 	map->map_malloc = ft_split(map->tmp_map_malloc, '\n');
 	if (map->map_malloc == NULL)
-		exit_error(map, NULL);
+		err(map, NULL);
 	row = -1;
 	col = 0;
 	while (map->map_malloc[++row] != NULL)
 		parse_map_line(map, row, &col);
-	if (map->player.starting_sight == '\0')
-		exit_error(map, "Invalid Player Data");
+	if (map->player.start_sight == '\0')
+		err(map, "Invalid Player Data");
 	map->row = row;
 	map->col = col;
 	visited = create_visited(map, map->row, map->col);
-	dfs(map->player.px, map->player.py, map, visited);
+	dfs(map->player.posX, map->player.posY, map, visited);
 	free_split(visited);
 	free_split(map->map_malloc);
 	free(map->tmp_map_malloc);

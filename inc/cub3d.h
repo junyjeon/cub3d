@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/04 06:05:01 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/05 20:57:24 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include "../lib/minilibx_opengl_20191021/mlx.h"
 # include <math.h>
 # include <string.h>
+
+# define SCREEN_WIDTH	640
+# define SCREEN_HEIGHT	480
 
 # define PI	3.14159
 
@@ -85,14 +88,20 @@ typedef struct s_img
 }           t_img;
 
 /* player */
+
 typedef struct s_player
 {
-	double	px;
-	double	py;
-	double	dx;
-	double	dy;
-	char	starting_sight;
+	double	posX;
+	double	posY;
+	char	start_sight;
 }           t_player;
+
+typedef struct s_camera
+{
+	double	dirx;
+	double	diry;
+}			t_camera;
+
 
 /* texture */
 typedef struct s_texture
@@ -178,8 +187,10 @@ void    parse(t_map *map, char *argv);
 void	parse_map(t_map *map);
 int		parse_color(t_map *map, char *line, int validate);
 
+void	dfs(int x, int y, t_map *map, int **visited) {
+
 /* utils */
-int		ft_put_error(int fd, char *s);
+int 	ft_put_err(int fd, char *s);
 void	free_all(t_map *map);
 void	free_split(char **split);
 void	exit_error(t_map *map, char *message);
