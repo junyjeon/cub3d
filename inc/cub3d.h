@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/05 20:57:24 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/06 01:58:27 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 
 # define SCREEN_WIDTH	640
 # define SCREEN_HEIGHT	480
+
+# define WALL_WIDTH		64
+# define WALL_HEIGHT	64
+
+
+# define MINIMAP_SCALE	0.25
 
 # define PI	3.14159
 
@@ -70,9 +76,6 @@
 # define SPACE_BAR 8
 
 # define NO_COLOR       -1
-# define SCREEN_WIDTH	640
-# define SCREEN_HEIGHT	480
-# define MINIMAP_SCALE	0.25
 # define M_UNIT			0.1
 # define R_UNIT			0.1
 # define BODY_UNIT		0.1	
@@ -81,8 +84,8 @@
 typedef struct s_img
 {
 	void			*img;
-	unsigned int	*data;
-	int				size_len;
+	char			*addr;
+	int				line_len;
 	int				bpp;
 	int				endian;
 }           t_img;
@@ -187,7 +190,7 @@ void    parse(t_map *map, char *argv);
 void	parse_map(t_map *map);
 int		parse_color(t_map *map, char *line, int validate);
 
-void	dfs(int x, int y, t_map *map, int **visited) {
+void	dfs(int x, int y, t_map *map, int **visited);
 
 /* utils */
 int 	ft_put_err(int fd, char *s);
