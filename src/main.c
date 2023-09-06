@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:56:35 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/06 21:20:54 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/06 21:24:25 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int main(int argc, char **argv)
 	//ESC키, red_cross_button 누르면 프로그램 종료.
 	//✅인수는 .cub마, 맵 구성은 NSEW 0 1 문자로만
 	init(&game);
-	루프
-	mlx그리는건
+	//루프
+	//mlx그리는건
 }
