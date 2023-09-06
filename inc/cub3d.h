@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/06 01:58:27 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:12:05 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,9 @@ void	parse_map(t_map *map);
 int		parse_color(t_map *map, char *line, int validate);
 
 void	dfs(int x, int y, t_map *map, int **visited);
+
+/*	init */
+void	init(t_game *game);
 
 /* utils */
 int 	ft_put_err(int fd, char *s);

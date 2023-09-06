@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:56:35 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/06 01:55:56 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:20:54 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,6 @@ int main(int argc, char **argv)
 	//ESC키, red_cross_button 누르면 프로그램 종료.
 	//✅인수는 .cub마, 맵 구성은 NSEW 0 1 문자로만
 	init(&game);
-}
-
-void	init(t_game *game)
-{
-	game->mlx = mlx_init();
-	if (!game->mlx)
-		ft_put_err("");
-	game->win = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	if (!game->win)
-		ft_put_err("");
-	init_img(game);
-}
-
-void	init_img(t_game *game)
-{
-	game->wall.img = mlx_new_image(game->mlx, WALL_WIDTH, WALL_HEIGHT);
-	game->wall.addr = mlx_get_data_addr(game->wall.img, &game->wall.bpp, &game->wall.line_len, &game->wall.endian);
-
-	game->screen.img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	game->screen.addr = mlx_get_data_addr(game->screen.img, &game->screen.bpp, &game->screen.line_len, &game->screen.endian);
-
-	game->minimap.img = mlx_new_image(game->mlx, SCREEN_WIDTH * MINIMAP_SCALE, SCREEN_HEIGHT * MINIMAP_SCALE);
-	game->minimap.addr = mlx_get_data_addr(game->minimap.img, &game->minimap.bpp, &game->minimap.line_len, &game->minimap.endian);
+	루프
+	mlx그리는건
 }
