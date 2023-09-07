@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/07 21:09:30 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/07 21:26:05 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ typedef struct s_game
 void    parse(t_map *map, char *argv);
 void	parse_map(t_map *map);
 void	process_lines(t_map *map, char **lines);
+char	*join_all_lines(char *map_data, char *s2);
 
 void	dfs(int x, int y, t_map *map, int **visited);
 

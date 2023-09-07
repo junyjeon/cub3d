@@ -6,13 +6,13 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:01:53 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/07 21:11:28 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/07 21:25:49 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static char	*join_all_lines(char *map_data, char *s2)
+char	*join_all_lines(char *map_data, char *s2)
 {
     char    *join_map;
     char    *all_line;

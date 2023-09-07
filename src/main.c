@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:56:35 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/07 21:08:41 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/07 21:26:35 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	check_argc(int argc)
 
 int main(int argc, char **argv)
 {
-    t_game game;
+    t_game	game;
+	t_map	map;
 	
 	check_argc(argc);
     init_map(&game);
