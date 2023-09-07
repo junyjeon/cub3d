@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 17:49:00 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/03/03 14:24:49 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:38:18 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
+	// if (str)
+	// 	while (str[i])
+	// 		i++;
 	if (str)
-		while (str[i])
+		while (*str){
+			str++;
 			i++;
+		}
 	return (i);
 }

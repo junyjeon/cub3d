@@ -6,24 +6,25 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 03:43:21 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/05 20:48:13 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/07 20:32:24 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int ft_put_err(int fd, char *s)
+int ft_put_err(char *s)
 {
-    write(fd, s, ft_strlen(s));
-    write(fd, "\n", 1);
+	write(2, "Error: ", 8);
+    write(2, s, ft_strlen(s));
+    write(2, "\n", 1);
     exit(1);
 }
 
 void	err(t_map *map, char *s)
 {
-	ft_putendl_fd("ERROR", 2);
-	if (s)
-		ft_putendl_fd(s, 2);
+	write(2, "Error: ", 8);
+	write(2, s, ft_strlen(s));
+    write(2, "\n", 1);
 	free_all(map);
 	exit(1);
 }
@@ -65,10 +66,11 @@ void	free_all(t_map *map)
 	i = -1;
 	while (++i < 4)
 	{
-		if (map->tex[i].tex_path_malloc)
+		if (map->tex[i].path)
 		{
-			free(map->tex[i].tex_path_malloc);
-			map->tex[i].tex_path_malloc = NULL;
+			// Notice.map은 free의 대상이 아님.
+			//free(map->tex[i].path);
+			map->tex[i].path = NULL;
 		}
 	}
 }

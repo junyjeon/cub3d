@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/06 21:12:05 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/07 21:09:30 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,10 @@ typedef struct s_camera
 	double	diry;
 }			t_camera;
 
-
 /* texture */
 typedef struct s_texture
 {
-	char			*tex_path_malloc;
+	char			*path;
 	unsigned int	*data;
 	t_img			texture;
 	int				width;
@@ -119,14 +118,17 @@ typedef struct s_texture
 /* map */
 typedef struct s_map
 {
-	t_player	player;
-	t_texture	tex[4];
+	// process_lines
 	int			floor_color;
 	int			ceil_color;
-	char		**map_malloc;
 	char		*tmp_map_malloc;
+	
+	// parse_map
+	char		**map_malloc;
+	t_texture	tex[4];
 	int			row;
 	int			col;
+	t_player	player;
 }           t_map;
 
 /* Structure for the game state */
@@ -188,17 +190,17 @@ typedef struct s_game
 /* parse */
 void    parse(t_map *map, char *argv);
 void	parse_map(t_map *map);
-int		parse_color(t_map *map, char *line, int validate);
+void	process_lines(t_map *map, char **lines);
 
 void	dfs(int x, int y, t_map *map, int **visited);
 
 /*	init */
-void	init(t_game *game);
+void	init_game(t_game *game);
 
 /* utils */
-int 	ft_put_err(int fd, char *s);
+int 	ft_put_err(char *s);
 void	free_all(t_map *map);
 void	free_split(char **split);
-void	exit_error(t_map *map, char *message);
+void	err(t_map *map, char *message);
 
 #endif
