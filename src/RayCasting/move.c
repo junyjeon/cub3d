@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 17:49:00 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/09 23:45:32 by junyojeo         ###   ########seoul.kr  */
+/*   Created: 2022/07/30 11:54:07 by gshim             #+#    #+#             */
+/*   Updated: 2023/09/10 02:24:26 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/cub3d.h"
 
-size_t	ft_strlen(const char *str)
+void	rotation_event(t_game *g)
 {
-	size_t	i;
+	if (g->l)
+		rotate(g, R_UNIT);
+	if (g->r)
+		rotate(g, -R_UNIT);
+}
 
-	i = 0;
-	if (str)
-		while (str[i])
-			i++;
-	return (i);
+void	move_event(t_game *g)
+{
+	if (g->w)
+		move(g, 0);
+	if (g->a)
+		move(g, M_PI_2);
+	if (g->s)
+		move(g, M_PI);
+	if (g->d)
+		move(g, -M_PI_2);
 }

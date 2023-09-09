@@ -6,14 +6,14 @@
 #    By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/11 19:23:49 by junyojeo          #+#    #+#              #
-#    Updated: 2023/09/07 20:54:13 by junyojeo         ###   ########seoul.kr   #
+#    Updated: 2023/09/10 03:46:25 by junyojeo         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	cub3D
 
 CC			=	cc -g2
-# CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 # CFLAGS		+=	-fsanitize=thread
 
 INC_DIR		=	./inc
@@ -32,9 +32,10 @@ CPPFLAGS	=	-I$(INC_DIR) -I$(LIBFT_DIR)
 LDFLAGS		=	-L$(LIBFT_DIR) -lft -L$(GNL_DIR) -lGNL -L$(MLX_DIR) -lmlx
 
 SRC_DIR		=	src
-BUILD_DIR	=	bulid
+BUILD_DIR	=	build
 
-SRC		=	$(addprefix $(SRC_DIR)/, main.c parse.c parse_map.c parse_pre.c init.c dfs.c utils.c)
+SRC		=	$(addprefix $(SRC_DIR)/, main.c parse.c parse_map.c parse_pre.c dfs.c utils.c\
+RayCasting/cub3d_init.c RayCasting/deal_key.c RayCasting/move.c RayCasting/ray_cal.c RayCasting/ray_render.c)
 			
 OBJ		=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 
@@ -48,7 +49,7 @@ $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(MLX_LNK)
 	@echo "$(GREEN)SUCCESS!$(END)"
 
-$(LIBFT_AC):
+$(LIBFT_AC):	
 	@make -C $(LIBFT_DIR) bonus
 
 $(GNL_AC):
@@ -58,6 +59,7 @@ $(MLX_AC):
 	@make -C $(MLX_DIR)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 $(BUILD_DIR):

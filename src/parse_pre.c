@@ -5,23 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 19:44:17 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/07 21:12:43 by junyojeo         ###   ########seoul.kr  */
+/*   Created: 2023/09/10 02:46:23 by junyojeo          #+#    #+#             */
+/*   Updated: 2023/09/10 03:46:13 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static int    parse_color(t_map *map, char *line, int validate)
+static int	parse_color(t_map *map, char *line)
 {
-    int		i;
+	int		i;
 	int		j;
-	int     color;
-    char    **rgb;
+	int		color;
+	char	**rgb;
 
-    rgb = ft_split(line + 2, ',');
-    if (rgb[0] == NULL || rgb[1] == NULL || rgb[2] == NULL || rgb[3] != NULL)
-        err(map, "Invalid Color");
+	rgb = ft_split(line + 2, ',');
+	if (rgb[0] == NULL || rgb[1] == NULL || rgb[2] == NULL || rgb[3] != NULL)
+		err(map, "Invalid Color");
 	j = -1;
 	while (rgb[++j])
 	{
@@ -29,36 +29,36 @@ static int    parse_color(t_map *map, char *line, int validate)
 		while (rgb[j][++i])
 			if (!ft_isdigit(rgb[j][i]))
 				err(map, "Invalid Color");
-    }
-    color = ft_atoi(rgb[0]) * 256 * 256 + ft_atoi(rgb[1]) * 256 + ft_atoi(rgb[2]);
-    if (color < 0 || 0xFFFFFF < color)
-        err(map, "Invalid Color");
-    free_split(rgb);
-    return (color);
+	}
+	color = ft_atoi(rgb[0]) * 512 + ft_atoi(rgb[1]) * 256 + ft_atoi(rgb[2]);
+	if (color < 0 || 0xFFFFFF < color)
+		err(map, "Invalid Color");
+	free_split(rgb);
+	return (color);
 }
 
 static void	save_map(t_map *map, int validate, char *line)
 {
-    if (validate == NO)
-        map->tex[NO].path = ft_strdup(line + 3);
-    else if (validate == SO)
-        map->tex[SO].path = ft_strdup(line + 3);
-    else if (validate == WE)
-        map->tex[WE].path = ft_strdup(line + 3);
-    else if (validate == EA)
-        map->tex[EA].path = ft_strdup(line + 3);
-    else if (validate == FLOOR)
-        map->floor_color = parse_color(map, line, FLOOR);
-    else if (validate == CEIL)
-        map->ceil_color = parse_color(map, line, CEIL);
-    else if (validate == MAP)
-        map->tmp_map_malloc = join_all_lines(map->tmp_map_malloc, line);
-    else if (validate == EMPTY_LINE)
+	if (validate == NO)
+		map->tex[NO].path = ft_strdup(line + 3);
+	else if (validate == SO)
+		map->tex[SO].path = ft_strdup(line + 3);
+	else if (validate == WE)
+		map->tex[WE].path = ft_strdup(line + 3);
+	else if (validate == EA)
+		map->tex[EA].path = ft_strdup(line + 3);
+	else if (validate == FLOOR)
+		map->floor_color = parse_color(map, line);
+	else if (validate == CEIL)
+		map->ceil_color = parse_color(map, line);
+	else if (validate == MAP)
+		map->tmp_map_malloc = join_all_lines(map->tmp_map_malloc, line);
+	else if (validate == EMPTY_LINE)
 		return ;
-    else if (validate == ERROR)
-        err(map, "Invalid Data");
+	else if (validate == ERROR)
+		err(map, "Invalid Data");
 	else
-        err(map, "Unexpected validate value");
+		err(map, "Unexpected validate value");
 }
 
 static int	validate_map_line(char *line)
@@ -75,22 +75,39 @@ static int	validate_map_line(char *line)
 		return (FLOOR);
 	if (ft_strncmp(line, "C ", 2) == 0)
 		return (CEIL);
-    if (ft_strchr("01NSWE ", line[0]) != NULL)
-        return (MAP);
-    if (line[0] == '\n')
-        return (EMPTY_LINE);
-    if (line[0] == '\0')
-        return (END);
-    return (ERROR);
+	if (ft_strchr("01NSWE ", line[0]) != NULL)
+		return (MAP);
+	if (line[0] == '\n')
+		return (EMPTY_LINE);
+	if (line[0] == '\0')
+		return (END);
+	return (ERROR);
 }
 
-void	process_lines(t_map *map, char **NSWEFCM)
+static void	open_texture(t_map *map)
 {
-    int i = -1;
+	int	fd;
+	int	i;
 
-    while (NSWEFCM[++i])
-    {
-        save_map(map, validate_map_line(NSWEFCM[i]), NSWEFCM[i]);
-        free(NSWEFCM[i]);
-    }
+	i = -1;
+	while (++i < 4)
+	{
+		fd = open(map->tex[i].path, O_RDONLY);
+		if (fd == -1)
+			err(map, "Invalid .xpm File");
+		close(fd);
+	}
+}
+
+void	process_lines(t_map *map, char **lines)
+{
+	int	i;
+
+	i = -1;
+	while (lines[++i])
+	{
+		save_map(map, validate_map_line(lines[i]), lines[i]);
+		free(lines[i]);
+	}
+	open_texture(map);
 }

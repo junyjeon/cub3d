@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/07 21:26:05 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/10 03:25:40 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 
 # define WALL_WIDTH		64
 # define WALL_HEIGHT	64
-
 
 # define MINIMAP_SCALE	0.25
 
@@ -88,16 +87,15 @@ typedef struct s_img
 	int				line_len;
 	int				bpp;
 	int				endian;
-}           t_img;
+}			t_img;
 
 /* player */
-
 typedef struct s_player
 {
-	double	posX;
-	double	posY;
+	double	posx;
+	double	posy;
 	char	start_sight;
-}           t_player;
+}			t_player;
 
 typedef struct s_camera
 {
@@ -113,23 +111,20 @@ typedef struct s_texture
 	t_img			texture;
 	int				width;
 	int				height;
-}           t_texture;
+}			t_texture;
 
 /* map */
 typedef struct s_map
 {
-	// process_lines
 	int			floor_color;
 	int			ceil_color;
 	char		*tmp_map_malloc;
-	
-	// parse_map
 	char		**map_malloc;
 	t_texture	tex[4];
 	int			row;
 	int			col;
 	t_player	player;
-}           t_map;
+}			t_map;
 
 /* Structure for the game state */
 typedef struct s_game
@@ -184,24 +179,44 @@ typedef struct s_game
 	int		minih;
 	int		gridw;
 	int		gridh;
-}           t_game;
-
+}			t_game;
 
 /* parse */
-void    parse(t_map *map, char *argv);
-void	parse_map(t_map *map);
-void	process_lines(t_map *map, char **lines);
-char	*join_all_lines(char *map_data, char *s2);
+void		parse(t_map *map, char *argv);
+void		parse_map(t_map *map);
+void		process_lines(t_map *map, char **lines);
+char		*join_all_lines(char *map_data, char *s2);
 
-void	dfs(int x, int y, t_map *map, int **visited);
+void		check_cover_wall(t_map *map, int **visited);
 
-/*	init */
-void	init_game(t_game *game);
+/* init */
+void		init_game(t_game *game);
 
 /* utils */
-int 	ft_put_err(char *s);
-void	free_all(t_map *map);
-void	free_split(char **split);
-void	err(t_map *map, char *message);
+int			ft_put_err(char *s);
+void		free_all(t_map *map);
+void		free_split(char **split);
+void		err(t_map *map, char *message);
+int			exit_event(t_map *map);
+
+/* ray_casting */
+void		game_init(t_game *g);
+void		img_init(t_game *g);
+int			window_init(t_game *game);
+void		move(t_game *g, double angle);
+void		rotate(t_game *g, double angle);
+int			e_keydown(int key_code, t_game *game);
+int			e_keyup(int key_code, t_game *game);
+void		rotation_event(t_game *g);
+void		move_event(t_game *g);
+void		ray_cal_init(t_game *g, int x);
+void		getsidedist(t_game *g);
+void		dda(t_game *g);
+void		getdrawpoint(t_game *g);
+void		cal_texture(t_game *g, t_texture *wall_tex);
+void		cast_one_ray(t_game *g, int x);
+void		drawline(t_game *g, t_texture *wall_tex, int x);
+void		setscreen(t_game *g);
+t_texture	getwalltexture(t_game *g);
 
 #endif

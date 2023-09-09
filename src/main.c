@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:56:35 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/07 21:26:35 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/10 03:52:42 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_map(t_game *game)
 {
 	t_map	*map;
 
+	map = (t_map *)malloc(sizeof(t_map));
 	ft_memset(map, 0, sizeof(t_map));
 	game->map = map;
 }
@@ -23,20 +24,45 @@ void	init_map(t_game *game)
 void	check_argc(int argc)
 {
 	if (argc != 2)
-        ft_put_err("Error");
+		ft_put_err("invalid argc count");
 }
 
-int main(int argc, char **argv)
+static int	main_loop(t_game *g)
 {
-    t_game	game;
-	t_map	map;
-	
+	int	x;
+
+	mlx_clear_window(g->mlx, g->win);
+	setscreen(g);
+	if (g->w || g->a || g->s || g->d)
+		move_event(g);
+	if (g->l || g->r)
+		rotation_event(g);
+	x = -1;
+	while (++x < SCREEN_WIDTH)
+		cast_one_ray(g, x);
+	mlx_put_image_to_window(g->mlx, g->win, g->screen.img, 0, 0);
+	return (0);
+}
+
+#include "stdio.h"
+
+int	main(int argc, char **argv)
+{
+	t_game	game;
+
 	check_argc(argc);
-    init_map(&game);
+	init_map(&game);
 	parse(game.map, argv[1]);
-	init_game(&game);
-	for (int i = 0; i < game.map->row; i++)
+	game_init(&game);
+	window_init(&game);
+	img_init(&game);
+	for (int i = 0; i < game.map->col; i++)
 		printf("%s\n", game.map->map_malloc[i]);
+	mlx_hook(game.win, X_EVENT_KEY_DOWN, 0, &e_keydown, &game);
+	mlx_hook(game.win, X_EVENT_KEY_UP, 0, &e_keyup, &game);
+	mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, &exit_event, &game.map);
+	mlx_loop_hook(game.mlx, &main_loop, &game);
+	mlx_loop(game.mlx);
 }
 
 //✅시작 위치 map->t_player posX, posY 초기화
