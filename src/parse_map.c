@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:03:27 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/10 20:28:41 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/10 21:07:34 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void	check_player_data(t_map *map, int x, int y)
 		err(map, "Invalid Player Data");
 	else
 		map->player.start_sight = map->map_malloc[x][y];
-	map->player.posx = x;
-	map->player.posy = y;
+	map->player.posx = (double)x + 0.5;
+	map->player.posy = (double)y + 0.5;
 }
 
 static int	**create_visited(t_map *map, int row, int col)

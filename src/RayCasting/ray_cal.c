@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:00:36 by gshim             #+#    #+#             */
-/*   Updated: 2023/09/10 20:35:54 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/10 21:03:15 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	dda(t_game *g)
 			g->mapy += g->stepy;
 			g->side = 1;
 		}
-		if (g->map->map_malloc[g->mapx][g->mapy] > '0')
+		if (g->map->map_malloc[g->mapx][g->mapy] == '1')
 			g->hit = 1;
 	}
 	if (g->side == 0)

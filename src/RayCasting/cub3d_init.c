@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 20:09:42 by gshim             #+#    #+#             */
-/*   Updated: 2023/09/10 19:37:04 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/10 21:24:33 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	texture_init(t_game *g)
 	i = -1;
 	while (++i < 4)
 	{
+		//Todo. 텍스쳐 addr, texture[][]배열이 필요한지 체크
 		tx[i].texture.img = mlx_xpm_file_to_image(g->mlx,\
 		tx[i].path, &(tx[i].width), &(tx[i].height));
 		if (tx[i].path)
