@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:00:36 by gshim             #+#    #+#             */
-/*   Updated: 2023/09/10 21:03:15 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/11 03:10:55 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,14 @@ void	dda(t_game *g)
 			g->mapy += g->stepy;
 			g->side = 1;
 		}
-		if (g->map->map_malloc[g->mapx][g->mapy] == '1')
-			g->hit = 1;
+		if (0 <= g->mapx && g->mapx < g->map->row && 0 <= g->mapy && g->mapy < g->map->col)
+			if (g->map->map_malloc[g->mapx][g->mapy] == '1')
+				g->hit = 1;
+		else
+		{
+			err(g->map, "Warning: Ray out of map");
+			return;
+		}
 	}
 	if (g->side == 0)
 		g->perpwalldist = g->sidedistx - g->deltadistx;
@@ -92,6 +98,7 @@ void	cal_texture(t_game *g, t_texture *wall_tex)
 		g->wallx = g->px + g->perpwalldist * g->raydirx;
 	g->wallx -= floor((g->wallx));
 	g->texx = (int)(g->wallx * (double)(wall_tex->width));
+	g->texx %= wall_tex->width;
 	if (g->side == 0 && g->raydirx > 0)
 		g->texx = wall_tex->width - g->texx - 1;
 	if (g->side == 1 && g->raydiry < 0)

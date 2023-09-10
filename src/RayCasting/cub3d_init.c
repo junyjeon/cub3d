@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 20:09:42 by gshim             #+#    #+#             */
-/*   Updated: 2023/09/10 21:24:33 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/11 03:03:11 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,17 @@ void	game_init(t_game *g)
 	g->mousemode = 0;
 }
 
+int	window_init(t_game *game)
+{
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		err(game->map, "Invalid mlx_init");
+	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "CUB_3D");
+	if (!game->win)
+		err(game->map, "Invalid win_init");
+	return (0);
+}
+
 static void	texture_init(t_game *g)
 {
 	t_texture	*tx;
@@ -55,6 +66,10 @@ static void	texture_init(t_game *g)
 		//Todo. 텍스쳐 addr, texture[][]배열이 필요한지 체크
 		tx[i].texture.img = mlx_xpm_file_to_image(g->mlx,\
 		tx[i].path, &(tx[i].width), &(tx[i].height));
+		if (!tx[i].texture.img)
+			err(g->map, "Invalid texture.img");
+		tx[i].texture.data = mlx_get_data_addr(tx[i].texture.img,\
+		&(tx[i].texture.bpp), &(tx[i].texture.line_len), &(tx[i].texture.endian));
 		if (tx[i].path)
 		{
 			free(tx[i].path);
@@ -72,15 +87,4 @@ void	img_init(t_game *g)
 	g->minimap.img = mlx_new_image(g->mlx, g->miniw, g->minih);
 	g->minimap.data = (unsigned int*)mlx_get_data_addr(g->minimap.img,
 			&(g->minimap.bpp), &(g->minimap.line_len), &(g->minimap.endian));
-}
-
-int	window_init(t_game *game)
-{
-	game->mlx = mlx_init();
-	if (!game->mlx)
-		err(game->map, "Invalid mlx_init");
-	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "CUB_3D");
-	if (!game->win)
-		err(game->map, "Invalid win_init");
-	return (0);
 }
