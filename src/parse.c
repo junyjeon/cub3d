@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 03:28:50 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/10 03:44:22 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/10 18:50:53 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	read_file(int fd, char **all_lines)
 		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	close(fd);
 }
 
@@ -56,8 +57,8 @@ char	**preprocessing(char *argv)
 	char	**lines;
 	char	*all_lines;
 
-	all_lines = NULL;
 	fd = check_file_extension(argv);
+	all_lines = NULL;
 	read_file(fd, &all_lines);
 	lines = ft_split(all_lines, '\n');
 	free(all_lines);

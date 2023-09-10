@@ -2,10 +2,10 @@ NO texture/dirt.xpm
 SO texture/gold_ore.xpm
 WE texture/iron_ore.xpm
 EA texture/diamond_ore.xpm
-F 220,100,0
+F 255,192,203
 C 225,30,0
-11111
-10001
-111N1
-10001
-11111
+111111
+100001
+10N001
+100001
+111111

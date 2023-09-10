@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 11:54:07 by gshim             #+#    #+#             */
-/*   Updated: 2023/09/10 02:24:26 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/10 17:30:38 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	rotation_event(t_game *g)
 
 void	move_event(t_game *g)
 {
+	printf("wasd가 눌렸습니다\n");
 	if (g->w)
 		move(g, 0);
 	if (g->a)

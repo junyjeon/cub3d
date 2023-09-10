@@ -6,11 +6,24 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 02:46:23 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/10 03:46:13 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/10 19:38:39 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+static char	*parse_texture(t_map *map, char *path_line)
+{
+	int		fd;
+	char	*path;
+
+	path = path_line + 3;
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		err(map, "Invalid .xpm File");
+	close(fd);
+	return (ft_strdup(path));
+}
 
 static int	parse_color(t_map *map, char *line)
 {
@@ -30,23 +43,23 @@ static int	parse_color(t_map *map, char *line)
 			if (!ft_isdigit(rgb[j][i]))
 				err(map, "Invalid Color");
 	}
-	color = ft_atoi(rgb[0]) * 512 + ft_atoi(rgb[1]) * 256 + ft_atoi(rgb[2]);
+	color = ft_atoi(rgb[0]) * 256 * 256 + ft_atoi(rgb[1]) * 256 + ft_atoi(rgb[2]);
 	if (color < 0 || 0xFFFFFF < color)
 		err(map, "Invalid Color");
 	free_split(rgb);
 	return (color);
 }
 
-static void	save_map(t_map *map, int validate, char *line)
+static void	save_map(t_map *map, char *line, int validate)
 {
 	if (validate == NO)
-		map->tex[NO].path = ft_strdup(line + 3);
+		map->tex[NO].path = parse_texture(map, line);
 	else if (validate == SO)
-		map->tex[SO].path = ft_strdup(line + 3);
+		map->tex[SO].path = parse_texture(map, line);
 	else if (validate == WE)
-		map->tex[WE].path = ft_strdup(line + 3);
+		map->tex[WE].path = parse_texture(map, line);
 	else if (validate == EA)
-		map->tex[EA].path = ft_strdup(line + 3);
+		map->tex[EA].path = parse_texture(map, line);
 	else if (validate == FLOOR)
 		map->floor_color = parse_color(map, line);
 	else if (validate == CEIL)
@@ -84,21 +97,6 @@ static int	validate_map_line(char *line)
 	return (ERROR);
 }
 
-static void	open_texture(t_map *map)
-{
-	int	fd;
-	int	i;
-
-	i = -1;
-	while (++i < 4)
-	{
-		fd = open(map->tex[i].path, O_RDONLY);
-		if (fd == -1)
-			err(map, "Invalid .xpm File");
-		close(fd);
-	}
-}
-
 void	process_lines(t_map *map, char **lines)
 {
 	int	i;
@@ -106,8 +104,7 @@ void	process_lines(t_map *map, char **lines)
 	i = -1;
 	while (lines[++i])
 	{
-		save_map(map, validate_map_line(lines[i]), lines[i]);
+		save_map(map, lines[i], validate_map_line(lines[i]));
 		free(lines[i]);
 	}
-	open_texture(map);
 }

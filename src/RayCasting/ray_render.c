@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:38:16 by gshim             #+#    #+#             */
-/*   Updated: 2023/09/10 03:24:21 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/10 17:44:52 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	cast_one_ray(t_game *g, int x)
 	dda(g);
 	getdrawpoint(g);
 	wall_tex = getwalltexture(g);
-	wall_tex.data = (unsigned int *)mlx_get_data_addr(wall_tex.texture.img,
-			&wall_tex.texture.bpp, (int *)wall_tex.texture.addr,
-			&wall_tex.texture.endian);
+	wall_tex.data = mlx_get_data_addr(wall_tex.texture.img,
+			&(wall_tex.texture.bpp), &(wall_tex.texture.line_len),
+			&(wall_tex.texture.endian));
 	cal_texture(g, &wall_tex);
 	drawline(g, &wall_tex, x);
 }
@@ -41,7 +41,7 @@ void	drawline(t_game *g, t_texture *wall_tex, int x)
 		color = wall_tex->data[wall_tex->height * g->texy + g->texx];
 		if (g->side == 1)
 			color = (color >> 1) & 8355711;
-		g->screen.addr[y * SCREEN_WIDTH + x] = color;
+		g->screen.data[y * SCREEN_WIDTH + x] = color;
 	}
 }
 
@@ -57,9 +57,9 @@ void	setscreen(t_game *g)
 		while (++x < SCREEN_WIDTH)
 		{
 			if (y <= SCREEN_HEIGHT / 2)
-				g->screen.addr[y * SCREEN_WIDTH + x] = g->map->ceil_color;
+				g->screen.data[y * SCREEN_WIDTH + x] = g->map->ceil_color;
 			else if (y > SCREEN_HEIGHT / 2)
-				g->screen.addr[y * SCREEN_WIDTH + x] = g->map->floor_color;
+				g->screen.data[y * SCREEN_WIDTH + x] = g->map->floor_color;
 		}
 	}
 }

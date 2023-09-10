@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 21:50:11 by gshim             #+#    #+#             */
-/*   Updated: 2023/09/10 02:44:23 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/10 17:31:38 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ void	rotate(t_game *g, double angle)
 
 int	e_keydown(int key_code, t_game *game)
 {
+	printf("keydown event\n");
+
+
 	if (key_code == KEY_ESC)
 		exit_event(game->map);
 	else if (key_code == KEY_UP || key_code == KEY_W)

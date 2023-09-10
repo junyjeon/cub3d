@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 03:27:16 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/10 03:28:01 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/10 20:03:27 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ void	check_cover_wall(t_map *map, int **visited)
 	int		y;
 	int		len;
 
-	y = -1;
-	while (++y < map->row)
+	x = -1;
+	while (++x < map->row)
 	{
-		x = -1;
-		len = ft_strlen(map->map_malloc[y]);
-		while (++x < len)
-			if (visited[y][x] == 0 && strchr("0NESW", map->map_malloc[y][x]))
+		len = ft_strlen(map->map_malloc[x]);
+		y = -1;
+		while (++y < len)
+			if (visited[x][y] == 0 && strchr("0NESW", map->map_malloc[x][y]\
+			&& map->map_malloc[x][y] != '\0'))
 				dfs(x, y, map, visited);
 	}
 }

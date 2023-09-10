@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/10 03:25:40 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/10 18:10:46 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define WALL_WIDTH		64
 # define WALL_HEIGHT	64
 
-# define MINIMAP_SCALE	0.25
+# define MINIMAP_SCALE	1
 
 # define PI	3.14159
 
@@ -83,7 +83,7 @@
 typedef struct s_img
 {
 	void			*img;
-	char			*addr;
+	unsigned int	*data;
 	int				line_len;
 	int				bpp;
 	int				endian;
@@ -91,23 +91,19 @@ typedef struct s_img
 
 /* player */
 typedef struct s_player
-{
+{ 
 	double	posx;
 	double	posy;
+	double	dirx;
+	double	diry;	
 	char	start_sight;
 }			t_player;
-
-typedef struct s_camera
-{
-	double	dirx;
-	double	diry;
-}			t_camera;
 
 /* texture */
 typedef struct s_texture
 {
 	char			*path;
-	unsigned int	*data;
+	char			*data;
 	t_img			texture;
 	int				width;
 	int				height;

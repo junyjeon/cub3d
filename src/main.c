@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:56:35 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/10 03:52:42 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/10 19:37:06 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ static int	main_loop(t_game *g)
 	return (0);
 }
 
-#include "stdio.h"
-
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -53,11 +51,11 @@ int	main(int argc, char **argv)
 	check_argc(argc);
 	init_map(&game);
 	parse(game.map, argv[1]);
+	// for (int i = 0; i < game.map->col; i++)
+	// 	printf("%s\n", game.map->map_malloc[i]);
 	game_init(&game);
 	window_init(&game);
 	img_init(&game);
-	for (int i = 0; i < game.map->col; i++)
-		printf("%s\n", game.map->map_malloc[i]);
 	mlx_hook(game.win, X_EVENT_KEY_DOWN, 0, &e_keydown, &game);
 	mlx_hook(game.win, X_EVENT_KEY_UP, 0, &e_keyup, &game);
 	mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, &exit_event, &game.map);
