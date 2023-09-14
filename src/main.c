@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:56:35 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/14 17:28:30 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/14 17:32:51 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	what_is(t_game *g)
 	g->sidedistx;
 	g->sidedisty;
 
-	//삼각형의 비율을 구한다. 밑변은 1이 고정이니까 높이는 x/y
+	//삼각형의 비율을 구한다. deltax의 밑변은 1이 고정이니까 높이는 x/y
 	g->deltadistx = abs(1 / g->raydirx);
 	g->deltadisty = abs(1 / g->raydiry);
 	g->perpwalldist; //어안렌지 방지
@@ -86,6 +86,27 @@ void	any_find(t_game *g)
 		g->sidedisty = (g->mapy + 1.0 - g->px) * g->deltadisty;
 	}
 }
+//Todo. 다시 이해하기
+void	dda(t_game *g)
+{
+	while (g->hit = 0)
+	{
+		if (g->sidedistx < g->sidedisty)
+		{
+			g->sidedistx += g->deltadistx;
+			g->mapx += g->step;
+			g->side = 0; 
+		}
+		else
+		{
+			g->sidedisty += g->deltadistx;
+			g->mapy += g->stepy;
+			g->side = 1;
+		}
+		if (g->map->map[g->mapx][g->mapy] == "1")
+			g->hit = 1;
+	}
+}
 
 void	ft_loop(t_game *g)
 {
@@ -94,6 +115,7 @@ void	ft_loop(t_game *g)
 	what_is(g);
 	//광선의 x가 몇분면에 있는지 찾기
 	any_find(g);
+	dda(g);
 }
 
 int	main(int argc, char **argv)
