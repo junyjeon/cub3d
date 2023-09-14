@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 03:28:50 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/10 18:50:53 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/14 15:31:42 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	check_file_extension(char *argv)
 	return (fd);
 }
 
-char	**preprocessing(char *argv)
+static char	**pre_processing(char *argv)
 {
 	int		fd;
 	char	**lines;
@@ -69,8 +69,8 @@ void	parse(t_map *map, char *argv)
 {
 	char	**lines;
 
-	lines = preprocessing(argv);
-	process_lines(map, lines);
+	lines = pre_processing(argv);
+	main_processing(map, lines);
 	free(lines);
 	parse_map(map);
 }

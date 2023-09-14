@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 21:50:11 by gshim             #+#    #+#             */
-/*   Updated: 2023/09/11 03:17:06 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:42:29 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static int	moveable(t_game *game, double nx, double ny)
 
 	x = nx;
 	y = ny;
-	if (x < 0 || y < 0 || x >= game->map->row || y >= game->map->col)
+	if (x < 0 || y < 0 || game->map->row < x|| game->map->col < y)
 		return (1);
 	//Todo. 플레이어 생성 위치 투명벽, 텍스쳐 xpm 사이즈, 색상 코드 체크
-	cell = game->map->map_malloc[(int)x][(int)y];
+	cell = game->map->map[(int)x][(int)y];
 	if (cell == '1')
 		return (0);
 	else if (cell != '0' && cell != 'N' && cell != 'S' && cell != 'W' && cell != 'E')

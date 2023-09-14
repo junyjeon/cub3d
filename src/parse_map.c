@@ -6,20 +6,34 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:03:27 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/10 21:07:34 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/14 16:57:41 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static void	check_player_data(t_map *map, int x, int y)
+static void	init_player(t_map *map, int x, int y)
 {
+	double	angle;
+
 	if (map->player.start_sight)
 		err(map, "Invalid Player Data");
 	else
-		map->player.start_sight = map->map_malloc[x][y];
+		map->player.start_sight = map->map[x][y];
 	map->player.posx = (double)x + 0.5;
 	map->player.posy = (double)y + 0.5;
+	if (map->map[x][y] == "N")
+		angle = PI;
+	else if (map->map[x][y] == "E")
+		angle = PI_2;
+	else if (map->map[x][y] == "S")
+		angle = 0;
+	else if (map->map[x][y] == "W")
+		angle = -PI_2;
+	map->player.dirx = -1.0;
+	map->player.diry = 0.0;
+	map->player.planex = 0.66;
+	map->player.planex = 0.66;
 }
 
 static int	**create_visited(t_map *map, int row, int col)
@@ -33,7 +47,7 @@ static int	**create_visited(t_map *map, int row, int col)
 	i = -1;
 	while (++i < row)
 	{
-		visited[i] = (int *)malloc(sizeof(int) * ft_strlen(map->map_malloc[i]));
+		visited[i] = (int *)malloc(sizeof(int) * ft_strlen(map->map[i]));
 		if (!visited[i])
 		{
 			while (i--)
@@ -55,31 +69,33 @@ static void	parse_map_line(t_map *map)
 
 	i = 0;
 	x = -1;
-	while (map->map_malloc[++x])
+	while (map->map[++x])
 	{
-		len = (int)ft_strlen(map->map_malloc[x]);
+		len = (int)ft_strlen(map->map[x]);
 		if (len > i)
 			i = len;
 		y = -1;
-		while (map->map_malloc[x][++y])
+		while (map->map[x][++y])
 		{
-			if (map->map_malloc[x][y] == 'N' || map->map_malloc[x][y] == 'S'\
-			|| map->map_malloc[x][y] == 'E' || map->map_malloc[x][y] == 'W')
-			check_player_data(map, x, y);
+			if (map->map[x][y] == 'N' || map->map[x][y] == 'S'\
+			|| map->map[x][y] == 'E' || map->map[x][y] == 'W')
+			init_player(map, x, y);
 		}
 	}
 	if (map->player.start_sight == 0)
 		err(map, "Invalid Player Data");
+	// printf("%c", map->player.start_sight);
 	map->row = x;
 	map->col = y;
+	// printf("row: %d, col: %d\n", map->row, map->col);
 }
 
 void	parse_map(t_map *map)
 {
 	int		**visited;
 
-	map->map_malloc = ft_split(map->tmp_map_malloc, '\n');
-	if (map->map_malloc == NULL)
+	map->map = ft_split(map->tmp_map, '\n');
+	if (map->map == NULL)
 		err(map, "Map Allocation Fail");
 	parse_map_line(map);
 	visited = create_visited(map, map->row, map->col);
@@ -88,6 +104,6 @@ void	parse_map(t_map *map)
 	while (++i < map->row)
 		free(visited[i]);
 	free(visited);
-	free(map->tmp_map_malloc);
-	map->tmp_map_malloc = NULL;
+	free(map->tmp_map);
+	map->tmp_map = NULL;
 }

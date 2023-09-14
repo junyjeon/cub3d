@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:38:16 by gshim             #+#    #+#             */
-/*   Updated: 2023/09/10 21:04:15 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/14 10:46:59 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void	setscreen(t_game *g)
 		while (++x < SCREEN_WIDTH)
 		{
 			if (y <= SCREEN_HEIGHT / 2)
-				g->screen.data[y * SCREEN_WIDTH + x] = g->map->ceil_color;
+				g->screen.data[y * SCREEN_WIDTH + x] = g->map->color_ceil;
 			else if (y > SCREEN_HEIGHT / 2)
-				g->screen.data[y * SCREEN_WIDTH + x] = g->map->floor_color;
+				g->screen.data[y * SCREEN_WIDTH + x] = g->map->color_floor;
 		}
 	}
 }

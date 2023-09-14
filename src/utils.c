@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 03:43:21 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/10 19:08:14 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/14 10:23:34 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,18 @@ void	free_all(t_map *map)
 {
 	int	i;
 
-	if (map->tmp_map_malloc)
-		free(map->tmp_map_malloc);
-	map->tmp_map_malloc = NULL;
-	if (map->map_malloc)
+	if (map->tmp_map)
+		free(map->tmp_map);
+	map->tmp_map = NULL;
+	if (map->map)
 	{
 		i = -1;
-		while (map->map_malloc[++i])
+		while (map->map[++i])
 		{
-			free(map->map_malloc[i]);
-			map->map_malloc[i] = NULL;
+			free(map->map[i]);
+			map->map[i] = NULL;
 		}
-		free(map->map_malloc);
+		free(map->map);
 	}
 	i = -1;
 	while (++i < 4)

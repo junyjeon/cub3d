@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/10 18:10:46 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/14 16:38:30 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,15 @@
 
 # define MINIMAP_SCALE	1
 
-# define PI	3.14159
-
 # define FALSE  0
 # define TRUE  	1
 
 # define EMPTY_LINE -2
 # define ERROR      -1
 # define SUCCESS    1
+
+# define PI		3.14159265358979323846264338327950288
+# define PI_2	1.57079632679489661923132169163975144
 
 # define X_EVENT_KEY_DOWN	2
 # define X_EVENT_KEY_UP		3
@@ -95,16 +96,18 @@ typedef struct s_player
 	double	posx;
 	double	posy;
 	double	dirx;
-	double	diry;	
+	double	diry;
+	double	planex;
+	double	planey;
 	char	start_sight;
 }			t_player;
 
 /* texture */
 typedef struct s_texture
 {
+	t_img			texture;
 	char			*path;
 	char			*data;
-	t_img			texture;
 	int				width;
 	int				height;
 }			t_texture;
@@ -112,14 +115,14 @@ typedef struct s_texture
 /* map */
 typedef struct s_map
 {
-	int			floor_color;
-	int			ceil_color;
-	char		*tmp_map_malloc;
-	char		**map_malloc;
 	t_texture	tex[4];
+	t_player	player;
+	char		**map;
+	char		*tmp_map;
+	int			color_floor;
+	int			color_ceil;
 	int			row;
 	int			col;
-	t_player	player;
 }			t_map;
 
 /* Structure for the game state */
@@ -179,14 +182,14 @@ typedef struct s_game
 
 /* parse */
 void		parse(t_map *map, char *argv);
-void		parse_map(t_map *map);
-void		process_lines(t_map *map, char **lines);
 char		*join_all_lines(char *map_data, char *s2);
+void		main_processing(t_map *map, char **lines);
+void		parse_map(t_map *map);
 
 void		check_cover_wall(t_map *map, int **visited);
 
 /* init */
-void		init_game(t_game *game);
+void		init(t_game *g);
 
 /* utils */
 int			ft_put_err(char *s);
@@ -195,10 +198,16 @@ void		free_split(char **split);
 void		err(t_map *map, char *message);
 int			exit_event(t_map *map);
 
+/* utils 2*/
+void	init_map(t_game *game);
+void	check_argc(int argc);
+
 /* ray_casting */
-void		game_init(t_game *g);
-void		img_init(t_game *g);
 int			window_init(t_game *game);
+void		img_init(t_game *g);
+void		texture_init(t_game *g);
+
+void		game_init(t_game *g);
 void		move(t_game *g, double angle);
 void		rotate(t_game *g, double angle);
 int			e_keydown(int key_code, t_game *game);
