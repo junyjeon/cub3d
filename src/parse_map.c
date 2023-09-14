@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:03:27 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/14 16:57:41 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/14 17:34:25 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static void	init_player(t_map *map, int x, int y)
 		map->player.start_sight = map->map[x][y];
 	map->player.posx = (double)x + 0.5;
 	map->player.posy = (double)y + 0.5;
-	if (map->map[x][y] == "N")
+	if (map->map[x][y] == 'N')
 		angle = PI;
-	else if (map->map[x][y] == "E")
+	else if (map->map[x][y] == 'E')
 		angle = PI_2;
-	else if (map->map[x][y] == "S")
+	else if (map->map[x][y] == 'S')
 		angle = 0;
-	else if (map->map[x][y] == "W")
+	else if (map->map[x][y] == 'W')
 		angle = -PI_2;
 	map->player.dirx = -1.0;
 	map->player.diry = 0.0;

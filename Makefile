@@ -6,7 +6,7 @@
 #    By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/11 19:23:49 by junyojeo          #+#    #+#              #
-#    Updated: 2023/09/14 16:20:38 by junyojeo         ###   ########seoul.kr   #
+#    Updated: 2023/09/14 17:36:21 by junyojeo         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC_DIR		=	src
 BUILD_DIR	=	build
 
 SRC		=	$(addprefix $(SRC_DIR)/, main.c parse.c parse_map.c parse_main.c dfs.c init.c utils.c utils2.c\
-RayCasting/cub3d_init.c RayCasting/deal_key.c RayCasting/move.c RayCasting/ray_cal.c RayCasting/ray_render.c)
+RayCasting/cub3d_init.c RayCasting/deal_key.c RayCasting/move.c RayCasting/ray_render.c)
 			
 OBJ		=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 

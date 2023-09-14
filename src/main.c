@@ -6,29 +6,29 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:56:35 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/14 17:32:51 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/14 17:36:08 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
 
-static int	main_loop(t_game *g)
-{
-	int	x;
+// static int	main_loop(t_game *g)
+// {
+// 	int	x;
 
-	mlx_clear_window(g->mlx, g->win);
-	setscreen(g);
-	if (g->w || g->a || g->s || g->d)
-		move_event(g);
-	if (g->l || g->r)
-		rotation_event(g);
-	x = -1;
-	while (++x < SCREEN_WIDTH)
-		cast_one_ray(g, x);
-	mlx_put_image_to_window(g->mlx, g->win, g->screen.img, 0, 0);
-	return (0);
-}
+// 	mlx_clear_window(g->mlx, g->win);
+// 	setscreen(g);
+// 	if (g->w || g->a || g->s || g->d)
+// 		move_event(g);
+// 	if (g->l || g->r)
+// 		rotation_event(g);
+// 	x = -1;
+// 	while (++x < SCREEN_WIDTH)
+// 		cast_one_ray(g, x);
+// 	mlx_put_image_to_window(g->mlx, g->win, g->screen.img, 0, 0);
+// 	return (0);
+// }
 
 void	screen_draw(t_game *g)
 {
@@ -47,20 +47,20 @@ static void	what_is(t_game *g)
 {
 	g->mapx = (int)g->px;
 	g->mapy = (int)g->py;
-	g->sidedistx;
-	g->sidedisty;
+	// g->sidedistx;
+	// g->sidedisty;
 
 	//삼각형의 비율을 구한다. deltax의 밑변은 1이 고정이니까 높이는 x/y
-	g->deltadistx = abs(1 / g->raydirx);
-	g->deltadisty = abs(1 / g->raydiry);
-	g->perpwalldist; //어안렌지 방지
+	g->deltadistx = fabs(1 / g->raydirx);
+	g->deltadisty = fabs(1 / g->raydiry);
+	// g->perpwalldist; //어안렌지 방지
 
 //x또는 y의 방향
-	g->stepx;
-	g->stepy;
+	// g->stepx;
+	// g->stepy;
 
 	g->hit = 0; // 광선이 벽에 부딪힘
-	g->side; // 동서? 남북?
+	// g->side; // 동서? 남북?
 }
 
 void	any_find(t_game *g)
@@ -89,7 +89,7 @@ void	any_find(t_game *g)
 //Todo. 다시 이해하기
 void	dda(t_game *g)
 {
-	while (g->hit = 0)
+	while (g->hit == 0)
 	{
 		if (g->sidedistx < g->sidedisty)
 		{
@@ -103,12 +103,12 @@ void	dda(t_game *g)
 			g->mapy += g->stepy;
 			g->side = 1;
 		}
-		if (g->map->map[g->mapx][g->mapy] == "1")
+		if (g->map->map[g->mapx][g->mapy] == '1')
 			g->hit = 1;
 	}
 }
 
-void	ft_loop(t_game *g)
+int	ft_loop(t_game *g)
 {
 	mlx_clear_window(g->mlx, g->win);
 	screen_draw(g);
@@ -116,6 +116,7 @@ void	ft_loop(t_game *g)
 	//광선의 x가 몇분면에 있는지 찾기
 	any_find(g);
 	dda(g);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -131,7 +132,8 @@ int	main(int argc, char **argv)
 	mlx_hook(game.win, X_EVENT_KEY_DOWN, 0, &e_keydown, &game);
 	mlx_hook(game.win, X_EVENT_KEY_UP, 0, &e_keyup, &game);
 	mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, &exit_event, &game.map);
-	mlx_loop_hook(game.mlx, &main_loop, &game);
+	mlx_loop_hook(game.mlx, &ft_loop, &game);
+	// mlx_loop_hook(game.mlx, &main_loop, &game);
 	mlx_loop(game.mlx);
 }
 
