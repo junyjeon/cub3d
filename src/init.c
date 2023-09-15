@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 16:15:07 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/14 16:44:04 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/15 18:17:59 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static void	init_game(t_game *g)
 	g->d = false;
 	g->l = false;
 	g->r = false;
+	g->minih = SCREEN_WIDTH * MINIMAP_SCALE;
+	g->miniw = SCREEN_HEIGHT * MINIMAP_SCALE;
 	g->px = g->map->player.posx;
 	g->py = g->map->player.posy;
 	g->dirx = g->map->player.dirx;

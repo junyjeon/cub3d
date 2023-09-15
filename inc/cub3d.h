@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/14 16:38:30 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/15 20:23:39 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ typedef struct s_game
 	double	wallx;
 	int		texx;
 	int		texy;
+	int		texnum;
 
 	double	step;
 	double	texpos;
@@ -178,6 +179,9 @@ typedef struct s_game
 	int		minih;
 	int		gridw;
 	int		gridh;
+
+	int		buf[SCREEN_HEIGHT][SCREEN_WIDTH];
+	int		re_buf;
 }			t_game;
 
 /* parse */
@@ -191,6 +195,9 @@ void		check_cover_wall(t_map *map, int **visited);
 /* init */
 void		init(t_game *g);
 
+/* loop */
+int			loop(t_game *g);
+
 /* utils */
 int			ft_put_err(char *s);
 void		free_all(t_map *map);
@@ -199,29 +206,25 @@ void		err(t_map *map, char *message);
 int			exit_event(t_map *map);
 
 /* utils 2*/
-void	init_map(t_game *game);
-void	check_argc(int argc);
+void		init_map(t_game *game);
+void		check_argc(int argc);
 
 /* ray_casting */
-int			window_init(t_game *game);
-void		img_init(t_game *g);
-void		texture_init(t_game *g);
 
-void		game_init(t_game *g);
-void		move(t_game *g, double angle);
-void		rotate(t_game *g, double angle);
-int			e_keydown(int key_code, t_game *game);
-int			e_keyup(int key_code, t_game *game);
-void		rotation_event(t_game *g);
-void		move_event(t_game *g);
-void		ray_cal_init(t_game *g, int x);
-void		getsidedist(t_game *g);
-void		dda(t_game *g);
-void		getdrawpoint(t_game *g);
-void		cal_texture(t_game *g, t_texture *wall_tex);
-void		cast_one_ray(t_game *g, int x);
-void		drawline(t_game *g, t_texture *wall_tex, int x);
-void		setscreen(t_game *g);
-t_texture	getwalltexture(t_game *g);
+// void		move(t_game *g, double angle);
+// void		rotate(t_game *g, double angle);
+// int			e_keydown(int key_code, t_game *game);
+// int			e_keyup(int key_code, t_game *game);
+// void		rotation_event(t_game *g);
+// void		move_event(t_game *g);
+// void		ray_cal_init(t_game *g, int x);
+// void		getsidedist(t_game *g);
+// void		dda(t_game *g);
+// void		getdrawpoint(t_game *g);
+// void		cal_texture(t_game *g, t_texture *wall_tex);
+// void		cast_one_ray(t_game *g, int x);
+// void		drawline(t_game *g, t_texture *wall_tex, int x);
+// void		setscreen(t_game *g);
+// t_texture	getwalltexture(t_game *g);
 
 #endif

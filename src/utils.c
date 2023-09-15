@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 03:43:21 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/14 10:23:34 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/15 19:48:49 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	err(t_map *map, char *s)
 int	exit_event(t_map *map)
 {
 	ft_putendl_fd("EXIT CUB3D", 0);
-	free_all(map);
+	// free_all(map);
+	(void)map;
 	exit(1);
 }
 
@@ -57,9 +58,6 @@ void	free_all(t_map *map)
 {
 	int	i;
 
-	if (map->tmp_map)
-		free(map->tmp_map);
-	map->tmp_map = NULL;
 	if (map->map)
 	{
 		i = -1;
@@ -69,11 +67,10 @@ void	free_all(t_map *map)
 			map->map[i] = NULL;
 		}
 		free(map->map);
+		map->map = NULL;
 	}
 	i = -1;
 	while (++i < 4)
-	{
 		if (map->tex[i].path)
 			map->tex[i].path = NULL;
-	}
 }
