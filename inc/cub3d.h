@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/15 20:23:39 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/16 20:21:25 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ typedef struct s_img
 	int				line_len;
 	int				bpp;
 	int				endian;
+	int				width;
+	int				height;
 }			t_img;
 
 /* player */
@@ -182,6 +184,7 @@ typedef struct s_game
 
 	int		buf[SCREEN_HEIGHT][SCREEN_WIDTH];
 	int		re_buf;
+	int		**texture;
 }			t_game;
 
 /* parse */

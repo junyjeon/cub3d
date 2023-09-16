@@ -6,25 +6,25 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:14:36 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/15 20:40:58 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/16 20:52:57 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static void	draw(t_game *g)
-{
-	int	x;
-	int	y;
+// static void	draw(t_game *g)
+// {
+// 	int	x;
+// 	int	y;
 
-	x = -1;
-	while (++x < SCREEN_HEIGHT)
-	{
-		y = -1;
-		while (++y < SCREEN_HEIGHT)
-			g->screen->
-	}
-}
+// 	x = -1;
+// 	while (++x < SCREEN_HEIGHT)
+// 	{
+// 		y = -1;
+// 		while (++y < SCREEN_HEIGHT)
+// 			g->screen->
+// 	}
+// }
 
 static void	triangle_dist(t_game *g)
 {
@@ -130,9 +130,9 @@ void	other2(t_game *g, int x)
 	for (int y = g->drawstart; y < g->drawend; y++)
 	{
 		// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-		int texY = (int)g->texpos & (WALL_HEIGHT - 1);
+		g->texy = (int)g->texpos & (WALL_HEIGHT - 1);
 		g->texpos += g->step;
-		int color = texture[g->texnum][WALL_HEIGHT * g->texy + g->texx];
+		int color = g->texture[g->texnum][WALL_HEIGHT * g->texy + g->texx];
 		// make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 		if (g->side == 1)
 			color = (color >> 1) & 8355711;
@@ -143,16 +143,20 @@ void	other2(t_game *g, int x)
 
 int	loop(t_game *g)
 {
-	mlx_clear_window(g->mlx, g->win);
 	int	x;
 
+	mlx_clear_window(g->mlx, g->win);
+	if (g->re_buf == 1)
+		for (int i = 0; i < SCREEN_HEIGHT; i++)
+			for (int j = 0; j < SCREEN_WIDTH; j++)
+				g->buf[i][j] = 0;
 	x = -1;
 	while (++x < SCREEN_WIDTH)
 	{
 		g->camerax = 2 * x / (double)SCREEN_WIDTH - 1;
 		g->raydirx = g->map->player.dirx + g->map->player.planex * g->camerax;
 		g->raydirx = g->map->player.diry + g->map->player.planey * g->camerax;
-		draw(g);
+		// draw(g);
 		triangle_dist(g);
 		//광선의 x가 몇분면에 있는지 찾기
 		any_find(g);

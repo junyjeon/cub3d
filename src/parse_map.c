@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:03:27 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/14 17:34:25 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/16 20:29:51 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,14 @@ static void	init_player(t_map *map, int x, int y)
 		angle = 0;
 	else if (map->map[x][y] == 'W')
 		angle = -PI_2;
-	map->player.dirx = -1.0;
-	map->player.diry = 0.0;
-	map->player.planex = 0.66;
-	map->player.planex = 0.66;
+	map->player.dirx = cos(angle);
+	map->player.diry = sin(angle);
+	map->player.planex = 0.66 * cos(angle - PI_2);
+	map->player.planey = 0.66 * sin(angle - PI_2);
+	// map->player.dirx = -1.0;
+	// map->player.diry = 0.0;
+	// map->player.planex = 0.66;
+	// map->player.planex = 0.66;
 }
 
 static int	**create_visited(t_map *map, int row, int col)
