@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 16:19:56 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/18 20:05:02 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 01:12:45 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	init_map(t_game *game)
 	t_map	*map;
 
 	map = (t_map *)malloc(sizeof(t_map));
+	if (!map)
+		err(map, "Map malloc failed.");
 	ft_memset(map, 0, sizeof(t_map));
 	game->map = map;
 }

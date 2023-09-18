@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:14:36 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/18 21:03:17 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 01:48:29 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ static void	draw(t_game *g)
 	int	x;
 	int	y;
 
-	y = -1;
-	while (++y < SCREEN_HEIGHT)
+	x = -1;
+	while (++x < SCREEN_HEIGHT)
 	{
-		x = -1;
-		while (++x < SCREEN_WIDTH)
-			g->screen.data[y * SCREEN_WIDTH + x] = g->buf[y][x]; 
+		y = -1;
+		while (++y < SCREEN_WIDTH)
+			g->screen.data[x * SCREEN_WIDTH + y] = g->buf[x][y];
 	}
 	mlx_put_image_to_window(g->mlx, g->win, g->screen.img, 0, 0);
 }
@@ -31,15 +31,13 @@ static void	triangle_dist(t_game *g)
 {
 	g->mapx = (int)g->px;
 	g->mapy = (int)g->py;
-
-	//삼각형의 비율을 구한다. deltax의 밑변은 1이 고정이니까 높이는 x/y
+//삼각형의 비율을 구한다. deltax의 밑변은 1이 고정이니까 높이는 x/y
 	g->deltadistx = fabs(1 / g->raydirx);
 	g->deltadisty = fabs(1 / g->raydiry);
-
-	g->hit = 0; //광선이 벽에 부딪힘
+	g->hit = 0;//광선이 벽에 부딪힘
 }
 
-static void	any_find(t_game *g)
+static void	find_side(t_game *g)
 {
 	if (g->raydirx < 0)
 	{
@@ -62,7 +60,7 @@ static void	any_find(t_game *g)
 		g->sidedisty = (g->mapy + 1.0 - g->py) * g->deltadisty;
 	}
 }
-//Todo. 다시 이해하기
+
 static void	dda(t_game *g)
 {
 	while (g->hit == 0)
@@ -71,7 +69,7 @@ static void	dda(t_game *g)
 		{
 			g->sidedistx += g->deltadistx;
 			g->mapx += g->stepx;
-			g->side = 0; 
+			g->side = 0;
 		}
 		else
 		{
@@ -95,22 +93,25 @@ void	prevent_fisheye_lens(t_game *g)
 void	other(t_game *g)
 {
 	g->lineheight = (int)(SCREEN_HEIGHT / g->perpwalldist);
-
-	g->drawstart = -(g->lineheight) / 2 + SCREEN_HEIGHT / 2;
+	g->drawstart = -g->lineheight / 2 + SCREEN_HEIGHT / 2;
 	if (g->drawstart < 0)
 		g->drawstart = 0;
 	g->drawend = g->lineheight / 2 + SCREEN_HEIGHT / 2;
 	if (g->drawend >= SCREEN_HEIGHT)
 		g->drawend = SCREEN_HEIGHT - 1;
+	// Check for valid map data
+	if (g->mapx < 0 || g->mapx >= g->map->row || g->mapy < 0 || g->mapy >= g->map->row_len[g->mapx])
+		err(g->map, "Invalid map coordinates");
 
-	g->texnum = g->map->map[g->mapx][g->mapy];
+	g->texnum = g->map->map[g->mapx][g->mapy] - '0';
+	if (g->texnum < 0 || g->texnum > 4)
+		err(g->map, "Invalid texture number");
 
 	if (g->side == 0)
 		g->wallx = g->py * g->perpwalldist * g->raydiry;
 	else
 		g->wallx = g->px + g->perpwalldist * g->raydirx;
 	g->wallx -= floor(g->wallx);
-	
 	g->texx = (int)g->wallx * (double)TEX_WIDTH;
 	if (g->side == 0 && g->raydirx > 0)
 		g->texx = TEX_WIDTH - g->texx - 1;
@@ -119,10 +120,14 @@ void	other(t_game *g)
 }
 
 void	other2(t_game *g, int x)
-{	
+{
+	int	y;
+
 	g->step = 1.0 * TEX_HEIGHT / g->lineheight;
-	g->texpos = (g->drawstart - SCREEN_HEIGHT / 2 + g->lineheight / 2) * g->step;
-	for (int y = g->drawstart; y < g->drawend; y++)
+	g->texpos = (g->drawstart - SCREEN_HEIGHT / 2 + g->lineheight / 2) \
+	* g->step;
+	y = g->drawstart;
+	while (++y < g->drawend)
 	{
 		g->texy = (int)g->texpos & (TEX_HEIGHT - 1);
 		g->texpos += g->step;
@@ -137,11 +142,19 @@ void	other2(t_game *g, int x)
 int	loop(t_game *g)
 {
 	int	x;
+	int	y;
 
-	for (int i = 0; i < SCREEN_HEIGHT; i++)
-		for (int j = 0; j < SCREEN_WIDTH; j++)
-			g->buf[i][j] = 0xFFFF00;
-	// ft_memset(g->buf, 0, sizeof(g->buf));
+	x = -1;
+	while (++x < SCREEN_HEIGHT)
+	{
+		y = -1;
+		while (++y < SCREEN_WIDTH)
+			g->buf[x][y] = 0xDD7700;
+	}
+	if (g->w || g->a || g->s || g->d)
+		move_event(g);
+	if (g->l || g->r)
+		rotation_event(g);
 	x = -1;
 	while (++x < SCREEN_WIDTH)
 	{
@@ -149,8 +162,7 @@ int	loop(t_game *g)
 		g->raydirx = g->dirx + g->planex * g->camerax;
 		g->raydiry = g->diry + g->planey * g->camerax;
 		triangle_dist(g);
-		//광선의 x가 몇분면에 있는지 찾기
-		any_find(g);
+		find_side(g);
 		dda(g);
 		prevent_fisheye_lens(g);
 		other(g);

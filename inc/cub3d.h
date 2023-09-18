@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/18 20:38:52 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 01:49:46 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,39 +42,31 @@
 # define PI		3.14159265358979323846264338327950288
 # define PI_2	1.57079632679489661923132169163975144
 
-# define X_EVENT_KEY_PRESS	2
 # define X_EVENT_KEY_DOWN	2
 # define X_EVENT_KEY_UP		3
 # define X_EVENT_KEY_EXIT   17
 
 /* key */
-# define KEY_LEFT       123
-# define KEY_RIGHT      124
-# define KEY_UP         126
-# define KEY_DOWN       125
-# define KEY_ESC        53
-# define KEY_A			0
-# define KEY_S			1
-# define KEY_D			2
-# define KEY_W			13
-# define KEY_F			3
+# define K_LEFT		123
+# define K_RIGHT	124
+# define K_UP		126
+# define K_DOWN		125
+# define K_ESC		53
+# define K_A		0
+# define K_S		1
+# define K_D		2
+# define K_W		13
+# define K_F		3
 
 /* texture */
 # define NO     0
 # define SO     1
 # define WE     2
 # define EA     3
-
-/* color */
 # define FLOOR  4
 # define CEIL   5
-
-/* map */
 # define MAP    6
-
-/* etc */
 # define END	7
-# define SPACE_BAR 8
 
 # define NO_COLOR       -1
 # define M_UNIT			0.1
@@ -84,18 +76,18 @@
 /* pixel */
 typedef struct s_img
 {
-	void			*img;
-	int				*data;
-	int				line_len;
-	int				bpp;
-	int				endian;
-	int				width;
-	int				height;
+	void	*img;
+	int		*data;
+	int		line_len;
+	int		bpp;
+	int		endian;
+	int		width;
+	int		height;
 }			t_img;
 
 /* player */
 typedef struct s_player
-{ 
+{
 	double	posx;
 	double	posy;
 	double	dirx;
@@ -108,11 +100,11 @@ typedef struct s_player
 /* texture */
 typedef struct s_texture
 {
-	t_img			texture;
-	char			*path;
-	char			*data;
-	int				width;
-	int				height;
+	t_img	texture;
+	char	*path;
+	char	*data;
+	int		width;
+	int		height;
 }			t_texture;
 
 /* map */
@@ -120,12 +112,14 @@ typedef struct s_map
 {
 	t_texture	tex[4];
 	t_player	player;
+	int			**visited;
 	char		**map;
 	char		*tmp_map;
 	int			color_floor;
 	int			color_ceil;
 	int			row;
 	int			col;
+	int			*row_len;
 }			t_map;
 
 /* Structure for the game state */
@@ -197,7 +191,7 @@ char		*join_all_lines(char *map_data, char *s2);
 void		main_processing(t_map *map, char **lines);
 void		parse_map(t_map *map);
 
-void		check_cover_wall(t_map *map, int **visited);
+void		check_cover_wall(t_map *map);
 
 /* init */
 void		init(t_game *g);
@@ -206,13 +200,14 @@ void		init(t_game *g);
 int			loop(t_game *g);
 
 /* keyhook */
-int		e_keydown(int key_code, t_game *game);
-int		e_keyup(int key_code, t_game *game);
-int		key_press(t_game *g);
+int			e_keydown(int key_code, t_game *game);
+int			e_keyup(int key_code, t_game *game);
+int			my_mlx_keyhook(t_game *g);
+void		rotation_event(t_game *g);
+void		move_event(t_game *g);
 
 /* utils */
 int			ft_put_err(char *s);
-void		free_all(t_map *map);
 void		free_split(char **split);
 void		err(t_map *map, char *message);
 int			exit_event(t_map *map);
@@ -221,21 +216,4 @@ int			exit_event(t_map *map);
 void		init_map(t_game *game);
 void		check_argc(int argc);
 
-/* ray_casting */
-
-// void		move(t_game *g, double angle);
-// void		rotate(t_game *g, double angle);
-// int			e_keydown(int key_code, t_game *game);
-// int			e_keyup(int key_code, t_game *game);
-// void		rotation_event(t_game *g);
-// void		move_event(t_game *g);
-// void		ray_cal_init(t_game *g, int x);
-// void		getsidedist(t_game *g);
-// void		dda(t_game *g);
-// void		getdrawpoint(t_game *g);
-// void		cal_texture(t_game *g, t_texture *wall_tex);
-// void		cast_one_ray(t_game *g, int x);
-// void		drawline(t_game *g, t_texture *wall_tex, int x);
-// void		setscreen(t_game *g);
-// t_texture	getwalltexture(t_game *g);
 #endif
