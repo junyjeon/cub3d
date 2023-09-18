@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:14:36 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 02:07:35 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 04:32:39 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	other(t_game *g)
 	else
 		g->wallx = g->px + g->perpwalldist * g->raydirx;
 	g->wallx -= floor(g->wallx);
-	g->texx = (int)g->wallx * (double)TEX_WIDTH;
+	g->texx = (int)(g->wallx * (double)TEX_WIDTH);
 	if (g->side == 0 && g->raydirx > 0)
 		g->texx = TEX_WIDTH - g->texx - 1;
 	if (g->side == 1 && g->raydiry < 0)
