@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:13:59 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 01:52:39 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 04:35:45 by junyojeo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	move(t_game *g, double angle)
 		|| !moveable(g, -nx + g->planex * 0.25, ny + g->planey * 0.25)
 		|| !moveable(g, nx + g->planex * 0.25, ny + g->planey * 0.25)
 		|| !moveable(g, -nx + g->planex * 0.25, ny - g->planey * 0.25)
-		|| !moveable(g, nx + g->planex * 0.25, ny - g->planey * 0.25))
+		|| !moveable(g, nx + g->planex * 0.25, ny - g->planey * 0.25)
+		|| !moveable(g, nx + g->planex * 0.25, -ny + g->planey * 0.25)
+		|| !moveable(g, -nx + g->planex * 0.25, -ny + g->planey * 0.25)
+		|| !moveable(g, nx - g->planex * 0.25, ny - g->planey * 0.25))
 		return ;
 	g->px = nx;
 	g->py = ny;
