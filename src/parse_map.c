@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:03:27 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/16 20:29:51 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/18 20:39:01 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	init_player(t_map *map, int x, int y)
 {
-	double	angle;
+	// double	angle;
 
 	if (map->player.start_sight)
 		err(map, "Invalid Player Data");
@@ -22,22 +22,22 @@ static void	init_player(t_map *map, int x, int y)
 		map->player.start_sight = map->map[x][y];
 	map->player.posx = (double)x + 0.5;
 	map->player.posy = (double)y + 0.5;
-	if (map->map[x][y] == 'N')
-		angle = PI;
-	else if (map->map[x][y] == 'E')
-		angle = PI_2;
-	else if (map->map[x][y] == 'S')
-		angle = 0;
-	else if (map->map[x][y] == 'W')
-		angle = -PI_2;
-	map->player.dirx = cos(angle);
-	map->player.diry = sin(angle);
-	map->player.planex = 0.66 * cos(angle - PI_2);
-	map->player.planey = 0.66 * sin(angle - PI_2);
-	// map->player.dirx = -1.0;
-	// map->player.diry = 0.0;
-	// map->player.planex = 0.66;
-	// map->player.planex = 0.66;
+	// if (map->map[x][y] == 'N')
+	// 	angle = PI;
+	// else if (map->map[x][y] == 'E')
+	// 	angle = PI_2;
+	// else if (map->map[x][y] == 'S')
+	// 	angle = 0;
+	// else if (map->map[x][y] == 'W')
+	// 	angle = -PI_2;
+	// map->player.dirx = cos(angle);
+	// map->player.diry = sin(angle);
+	// map->player.planex = 0.66 * cos(angle - PI_2);
+	// map->player.planey = 0.66 * sin(angle - PI_2);
+	map->player.dirx = -1.0;
+	map->player.diry = 0.0;
+	map->player.planex = 0.66;
+	map->player.planex = 0.66;
 }
 
 static int	**create_visited(t_map *map, int row, int col)

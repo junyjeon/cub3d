@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 03:28:50 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/14 15:31:42 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/18 19:26:52 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ char	*join_all_lines(char *map_data, char *s2)
 	if (!map_data)
 		return (ft_strdup(s2));
 	tmp = ft_strjoin(map_data, "\n");
+	free(map_data);
 	all_line = ft_strjoin(tmp, s2);
+	free(tmp);
 	return (all_line);
 }
 

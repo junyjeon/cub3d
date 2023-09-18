@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/16 20:21:25 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/18 20:38:52 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define SCREEN_WIDTH	640
 # define SCREEN_HEIGHT	480
 
-# define WALL_WIDTH		64
-# define WALL_HEIGHT	64
+# define TEX_WIDTH		64
+# define TEX_HEIGHT		64
 
 # define MINIMAP_SCALE	1
 
@@ -42,6 +42,7 @@
 # define PI		3.14159265358979323846264338327950288
 # define PI_2	1.57079632679489661923132169163975144
 
+# define X_EVENT_KEY_PRESS	2
 # define X_EVENT_KEY_DOWN	2
 # define X_EVENT_KEY_UP		3
 # define X_EVENT_KEY_EXIT   17
@@ -84,7 +85,7 @@
 typedef struct s_img
 {
 	void			*img;
-	unsigned int	*data;
+	int				*data;
 	int				line_len;
 	int				bpp;
 	int				endian;
@@ -182,9 +183,12 @@ typedef struct s_game
 	int		gridw;
 	int		gridh;
 
+	double	movespeed;
+	double	rotspeed;
 	int		buf[SCREEN_HEIGHT][SCREEN_WIDTH];
 	int		re_buf;
 	int		**texture;
+	int		color;
 }			t_game;
 
 /* parse */
@@ -200,6 +204,11 @@ void		init(t_game *g);
 
 /* loop */
 int			loop(t_game *g);
+
+/* keyhook */
+int		e_keydown(int key_code, t_game *game);
+int		e_keyup(int key_code, t_game *game);
+int		key_press(t_game *g);
 
 /* utils */
 int			ft_put_err(char *s);
@@ -229,5 +238,4 @@ void		check_argc(int argc);
 // void		drawline(t_game *g, t_texture *wall_tex, int x);
 // void		setscreen(t_game *g);
 // t_texture	getwalltexture(t_game *g);
-
 #endif

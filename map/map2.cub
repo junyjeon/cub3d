@@ -1,7 +1,7 @@
-NO texture/dirt.xpm
-SO texture/gold_ore.xpm
-WE texture/iron_ore.xpm
-EA texture/diamond_ore.xpm
+NO texture/greystone.xpm
+SO texture/mossy.xpm
+WE texture/redbrick.xpm
+EA texture/wood.xpm
 F 255,192,203
 C 225,30,0
 111111

@@ -6,15 +6,15 @@
 #    By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/11 19:23:49 by junyojeo          #+#    #+#              #
-#    Updated: 2023/09/16 20:53:10 by junyojeo         ###   ########.fr        #
+#    Updated: 2023/09/18 20:39:51 by junyojeo         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	cub3D
 
 CC			=	cc
-# CFLAGS		=	-Wall -Wextra -Werror
-CFLAGS		+=	-fsanitize=address -g2
+# CFLAGS		=	-Wall -Wextra -Werror --pedantic
+CFLAGS		+=	-fsanitize=address -g3
 
 INC_DIR		=	./inc
 
@@ -34,7 +34,7 @@ LDFLAGS		=	-L$(LIBFT_DIR) -lft -L$(GNL_DIR) -lGNL -L$(MLX_DIR) -lmlx
 SRC_DIR		=	src
 BUILD_DIR	=	build
 
-SRC		=	$(addprefix $(SRC_DIR)/, main.c parse.c parse_map.c parse_main.c dfs.c loop.c init.c utils.c utils2.c)
+SRC		=	$(addprefix $(SRC_DIR)/, main.c parse.c parse_map.c parse_main.c dfs.c keyhook.c loop.c init.c utils.c utils2.c)
 
 OBJ		=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 

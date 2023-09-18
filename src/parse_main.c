@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 02:46:23 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/14 10:49:01 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/18 20:46:40 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static char	*parse_texture(t_map *map, char *path)
 	close(fd);
 	return (ft_strdup(path));
 }
-
+//Todo. 맵의 동서남북, 컬러가 각 하나씩 들어왔는지, 다 들어왔는지.
 static void	validate_line(t_map *map, char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
