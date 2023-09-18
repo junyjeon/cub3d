@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:13:59 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 01:49:42 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 01:52:39 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	moveable(t_game *game, double nx, double ny)
 	y = (int)ny;
 	if (x < 0 || y < 0 || x >= game->map->row || y >= game->map->col)
 		return (1);
-	if (game->map->map[x][y] > '0')
+	if (game->map->map[x][y] == '1')
 		return (0);
 	else
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:14:36 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 01:48:29 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 02:07:35 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	dda(t_game *g)
 			g->mapy += g->stepy;
 			g->side = 1;
 		}
-		if (g->map->map[g->mapx][g->mapy] > '0')
+		if (g->map->map[g->mapx][g->mapy] == '1')
 			g->hit = 1;
 	}
 }
@@ -149,7 +149,7 @@ int	loop(t_game *g)
 	{
 		y = -1;
 		while (++y < SCREEN_WIDTH)
-			g->buf[x][y] = 0xDD7700;
+			g->buf[x][y] = 0xFFA719;
 	}
 	if (g->w || g->a || g->s || g->d)
 		move_event(g);
