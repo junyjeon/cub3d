@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 03:43:21 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/18 23:51:38 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 17:09:14 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,15 @@ void	err(t_map *map, char *s)
 	exit(1);
 }
 
-int	exit_event(t_map *map)
+void	check_argc(int argc)
+{
+	if (argc != 2)
+		ft_put_err("invalid argc count");
+}
+
+int	event_exit(void)
 {
 	ft_putendl_fd("EXIT CUB3D", 0);
-	// free_all(map);
-	(void)map;
 	exit(1);
 }
 

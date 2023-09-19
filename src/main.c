@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:56:35 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/18 23:51:22 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 17:10:04 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	main(int argc, char **argv)
 //✅인수는 .cub마, 맵 구성은 NSEW 0 1 문자로만
 //루프
 //mlx그리는건
-
 
 // 인자 수 확인
 // 게임의 맵 초기화

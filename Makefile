@@ -6,7 +6,7 @@
 #    By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/11 19:23:49 by junyojeo          #+#    #+#              #
-#    Updated: 2023/09/18 23:54:37 by junyojeo         ###   ########seoul.kr   #
+#    Updated: 2023/09/19 18:00:48 by junyojeo         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME		=	cub3D
 
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
-CFLAGS		+=	-fsanitize=address  --pedantic
-CFLAGS		+=	-g3
+# CFLAGS		+=	-fsanitize=address  --pedantic
+# CFLAGS		+=	-g3
 
 INC_DIR		=	./inc
 
@@ -35,7 +35,7 @@ LDFLAGS		=	-L$(LIBFT_DIR) -lft -L$(GNL_DIR) -lGNL -L$(MLX_DIR) -lmlx
 SRC_DIR		=	src
 BUILD_DIR	=	build
 
-SRC		=	$(addprefix $(SRC_DIR)/, main.c parse.c parse_map.c parse_main.c dfs.c keyhook.c loop.c init.c utils.c utils2.c)
+SRC		=	$(addprefix $(SRC_DIR)/, main.c parse.c parse_map.c parse_main.c dfs.c keyhook.c loop.c loop2.c init.c texture.c move.c utils.c)
 
 OBJ		=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 

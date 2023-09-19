@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 03:28:50 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/18 23:59:59 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 17:10:15 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,4 @@ void	parse(t_map *map, char *argv)
 	main_processing(map, lines);
 	free(lines);
 	parse_map(map);
-	for (int i = 0; map->map[i]; i++)
-		printf("%s\n", map->map[i]);
-	printf("map->row: %d\nmap->col: %d\n", map->row, map->col);
 }

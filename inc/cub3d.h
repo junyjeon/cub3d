@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 01:49:46 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 18:01:57 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,30 +190,36 @@ void		parse(t_map *map, char *argv);
 char		*join_all_lines(char *map_data, char *s2);
 void		main_processing(t_map *map, char **lines);
 void		parse_map(t_map *map);
-
 void		check_cover_wall(t_map *map);
 
 /* init */
 void		init(t_game *g);
+void		init_map(t_game *game);
 
-/* loop */
-int			loop(t_game *g);
+/* texture */
+void		init_texture(t_game *g);
 
 /* keyhook */
 int			e_keydown(int key_code, t_game *game);
 int			e_keyup(int key_code, t_game *game);
 int			my_mlx_keyhook(t_game *g);
-void		rotation_event(t_game *g);
-void		move_event(t_game *g);
+
+/* move */
+void		event_rotation(t_game *g);
+void		event_move(t_game *g);
+int			event_exit(void);
+
+/* loop */
+int			loop(t_game *g);
+void		prevent_fisheye_lens(t_game *g);
+void		other(t_game *g);
+void		draw_y(t_game *g, int x);
+void		dda(t_game *g);
 
 /* utils */
 int			ft_put_err(char *s);
-void		free_split(char **split);
 void		err(t_map *map, char *message);
-int			exit_event(t_map *map);
-
-/* utils 2*/
-void		init_map(t_game *game);
 void		check_argc(int argc);
+void		free_split(char **split);
 
 #endif

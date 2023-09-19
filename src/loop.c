@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:14:36 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 04:32:39 by junyojeo         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:02:20 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ static void	triangle_dist(t_game *g)
 {
 	g->mapx = (int)g->px;
 	g->mapy = (int)g->py;
-//삼각형의 비율을 구한다. deltax의 밑변은 1이 고정이니까 높이는 x/y
 	g->deltadistx = fabs(1 / g->raydirx);
 	g->deltadisty = fabs(1 / g->raydiry);
-	g->hit = 0;//광선이 벽에 부딪힘
+	g->hit = 0;
 }
 
 static void	find_side(t_game *g)
@@ -61,85 +60,7 @@ static void	find_side(t_game *g)
 	}
 }
 
-static void	dda(t_game *g)
-{
-	while (g->hit == 0)
-	{
-		if (g->sidedistx < g->sidedisty)
-		{
-			g->sidedistx += g->deltadistx;
-			g->mapx += g->stepx;
-			g->side = 0;
-		}
-		else
-		{
-			g->sidedisty += g->deltadisty;
-			g->mapy += g->stepy;
-			g->side = 1;
-		}
-		if (g->map->map[g->mapx][g->mapy] == '1')
-			g->hit = 1;
-	}
-}
-
-void	prevent_fisheye_lens(t_game *g)
-{
-	if (g->side == 0)
-		g->perpwalldist = (g->mapx - g->px + (1 - g->stepx) / 2) / g->raydirx;
-	else
-		g->perpwalldist = (g->mapy - g->py + (1 - g->stepy) / 2) / g->raydiry;
-}
-
-void	other(t_game *g)
-{
-	g->lineheight = (int)(SCREEN_HEIGHT / g->perpwalldist);
-	g->drawstart = -g->lineheight / 2 + SCREEN_HEIGHT / 2;
-	if (g->drawstart < 0)
-		g->drawstart = 0;
-	g->drawend = g->lineheight / 2 + SCREEN_HEIGHT / 2;
-	if (g->drawend >= SCREEN_HEIGHT)
-		g->drawend = SCREEN_HEIGHT - 1;
-	// Check for valid map data
-	if (g->mapx < 0 || g->mapx >= g->map->row || g->mapy < 0 || g->mapy >= g->map->row_len[g->mapx])
-		err(g->map, "Invalid map coordinates");
-
-	g->texnum = g->map->map[g->mapx][g->mapy] - '0';
-	if (g->texnum < 0 || g->texnum > 4)
-		err(g->map, "Invalid texture number");
-
-	if (g->side == 0)
-		g->wallx = g->py * g->perpwalldist * g->raydiry;
-	else
-		g->wallx = g->px + g->perpwalldist * g->raydirx;
-	g->wallx -= floor(g->wallx);
-	g->texx = (int)(g->wallx * (double)TEX_WIDTH);
-	if (g->side == 0 && g->raydirx > 0)
-		g->texx = TEX_WIDTH - g->texx - 1;
-	if (g->side == 1 && g->raydiry < 0)
-		g->texx = TEX_WIDTH - g->texx - 1;
-}
-
-void	other2(t_game *g, int x)
-{
-	int	y;
-
-	g->step = 1.0 * TEX_HEIGHT / g->lineheight;
-	g->texpos = (g->drawstart - SCREEN_HEIGHT / 2 + g->lineheight / 2) \
-	* g->step;
-	y = g->drawstart;
-	while (++y < g->drawend)
-	{
-		g->texy = (int)g->texpos & (TEX_HEIGHT - 1);
-		g->texpos += g->step;
-		g->color = g->texture[g->texnum][TEX_HEIGHT * g->texy + g->texx];
-		if (g->side == 1)
-			g->color = (g->color >> 1) & 8355711;
-		g->buf[y][x] = g->color;
-		g->re_buf = 1;
-	}
-}
-
-int	loop(t_game *g)
+void	tmp_loop(t_game *g)
 {
 	int	x;
 	int	y;
@@ -152,9 +73,16 @@ int	loop(t_game *g)
 			g->buf[x][y] = 0xFFA719;
 	}
 	if (g->w || g->a || g->s || g->d)
-		move_event(g);
+		event_move(g);
 	if (g->l || g->r)
-		rotation_event(g);
+		event_rotation(g);
+}
+
+int	loop(t_game *g)
+{
+	int	x;
+
+	tmp_loop(g);
 	x = -1;
 	while (++x < SCREEN_WIDTH)
 	{
@@ -166,7 +94,7 @@ int	loop(t_game *g)
 		dda(g);
 		prevent_fisheye_lens(g);
 		other(g);
-		other2(g, x);
+		draw_y(g, x);
 	}
 	draw(g);
 	return (0);

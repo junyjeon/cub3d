@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:03:27 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 01:10:03 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 18:02:27 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	**create_visited(t_map *map)
 		{
 			while (i--)
 				free(visited[i]);
-			free(visited); 
+			free(visited);
 			err(map, "Malloc Fail");
 		}
 		memset(visited[i], 0, sizeof(int) * map->row_len[i]);
