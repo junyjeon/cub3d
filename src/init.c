@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 16:15:07 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 21:34:31 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/20 00:41:24 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,11 @@ static void	init_game(t_game *g)
 	g->r = false;
 	g->px = g->map->player.posx;
 	g->py = g->map->player.posy;
-	g->dirx = g->map->player.dirx;
+	g->dirx = g->map->player.dirx + 0.0001;
 	g->diry = g->map->player.diry;
 	g->planex = g->map->player.planex;
 	g->planey = g->map->player.planey;
+	g->speed = 0.1;
 }
 
 void	init(t_game *g)

@@ -6,44 +6,11 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:58:42 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 21:32:43 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/20 01:58:23 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-void	prevent_fisheye_lens(t_game *g)
-{
-	if (g->side == 0)
-		g->perpwalldist = (g->mapx - g->px + (1 - g->stepx) / 2) / g->raydirx;
-	else
-		g->perpwalldist = (g->mapy - g->py + (1 - g->stepy) / 2) / g->raydiry;
-}
-
-void	calc_wall(t_game *g)
-{
-	g->lineheight = (int)(SCREEN_HEIGHT / g->perpwalldist);
-	g->drawstart = -g->lineheight / 2 + SCREEN_HEIGHT / 2;
-	if (g->drawstart < 0)
-		g->drawstart = 0;
-	g->drawend = g->lineheight / 2 + SCREEN_HEIGHT / 2;
-	if (g->drawend >= SCREEN_HEIGHT)
-		g->drawend = SCREEN_HEIGHT - 1;
-	g->texnum = g->map->map[g->mapx][g->mapy] - '0';
-	if (g->side == 0)
-		g->wallx = g->py + g->perpwalldist * g->raydiry;
-	else
-		g->wallx = g->px + g->perpwalldist * g->raydirx;
-	g->wallx -= floor(g->wallx);
-	g->texx = (int)(g->wallx * (double)TEX_WIDTH);
-	if (g->side == 0 && g->raydirx > 0)
-		g->texx = TEX_WIDTH - g->texx - 1;
-	if (g->side == 1 && g->raydiry < 0)
-		g->texx = TEX_WIDTH - g->texx - 1;
-	g->step = 1.0 * TEX_HEIGHT / g->lineheight;
-	g->texpos = (g->drawstart - SCREEN_HEIGHT / 2 + g->lineheight / 2) \
-	* g->step;
-}
 
 void	set_vertical_line(t_game *g, int x)
 {
@@ -66,6 +33,51 @@ void	set_vertical_line(t_game *g, int x)
 	y = g->drawend;
 	while (++y < SCREEN_HEIGHT)
 		g->buf[y][x] = g->map->color_floor;
+}
+
+static void	set_texnum(t_game *g)
+{
+	if (g->side == 0 && g->stepx == -1)
+		g->texnum = 0;
+	else if (g->side == 0 && g->stepx == 1)
+		g->texnum = 1;
+	else if (g->side == 1 && g->stepy == -1)
+		g->texnum = 2;
+	else if (g->side == 1 && g->stepy == 1)
+		g->texnum = 3;
+}
+
+void	calc_wall(t_game *g)
+{
+	g->lineheight = (int)(SCREEN_HEIGHT / g->perpwalldist);
+	g->drawstart = -g->lineheight / 2 + SCREEN_HEIGHT / 2;
+	if (g->drawstart < 0)
+		g->drawstart = 0;
+	g->drawend = g->lineheight / 2 + SCREEN_HEIGHT / 2;
+	if (g->drawend >= SCREEN_HEIGHT)
+		g->drawend = SCREEN_HEIGHT - 1;
+	set_texnum(g);
+	if (g->side == 0)
+		g->wallx = g->py + g->perpwalldist * g->raydiry;
+	else
+		g->wallx = g->px + g->perpwalldist * g->raydirx;
+	g->wallx -= floor(g->wallx);
+	g->texx = (int)(g->wallx * (double)TEX_WIDTH);
+	if (g->side == 0 && g->raydirx > 0)
+		g->texx = TEX_WIDTH - g->texx - 1;
+	if (g->side == 1 && g->raydiry < 0)
+		g->texx = TEX_WIDTH - g->texx - 1;
+	g->step = 1.0 * TEX_HEIGHT / g->lineheight;
+	g->texpos = (g->drawstart - SCREEN_HEIGHT / 2 + g->lineheight / 2) \
+	* g->step;
+}
+
+void	prevent_fisheye_lens(t_game *g)
+{
+	if (g->side == 0)
+		g->perpwalldist = (g->mapx - g->px + (1 - g->stepx) / 2) / g->raydirx;
+	else
+		g->perpwalldist = (g->mapy - g->py + (1 - g->stepy) / 2) / g->raydiry;
 }
 
 void	dda(t_game *g)

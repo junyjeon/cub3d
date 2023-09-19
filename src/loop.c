@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:14:36 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 21:41:12 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 23:16:54 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,6 @@ static void	draw(t_game *g)
 			g->screen.data[x * SCREEN_WIDTH + y] = g->buf[x][y];
 	}
 	mlx_put_image_to_window(g->mlx, g->win, g->screen.img, 0, 0);
-}
-
-static void	triangle_dist(t_game *g)
-{
-	g->mapx = (int)g->px;
-	g->mapy = (int)g->py;
-	g->deltadistx = fabs(1 / g->raydirx);
-	g->deltadisty = fabs(1 / g->raydiry);
-	g->hit = 0;
 }
 
 static void	find_side(t_game *g)
@@ -58,6 +49,15 @@ static void	find_side(t_game *g)
 		g->stepy = 1;
 		g->sidedisty = (g->mapy + 1.0 - g->py) * g->deltadisty;
 	}
+}
+
+static void	triangle_dist(t_game *g)
+{
+	g->mapx = (int)g->px;
+	g->mapy = (int)g->py;
+	g->deltadistx = fabs(1 / g->raydirx);
+	g->deltadisty = fabs(1 / g->raydiry);
+	g->hit = 0;
 }
 
 static void	update_state(t_game *g)

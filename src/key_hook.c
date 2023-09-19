@@ -1,50 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keyhook.c                                          :+:      :+:    :+:   */
+/*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:13:59 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 17:11:35 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/20 01:56:19 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	e_keydown(int key_code, t_game *game)
+int	event_exit(void)
+{
+	ft_putendl_fd("EXIT CUB3D", 0);
+	exit(1);
+}
+
+static int	e_keydown(int key_code, t_game *g)
 {
 	if (key_code == K_ESC)
 		event_exit();
 	else if (key_code == K_UP || key_code == K_W)
-		game->w = true;
+		g->w = true;
 	else if (key_code == K_DOWN || key_code == K_S)
-		game->s = true;
+		g->s = true;
 	else if (key_code == K_A)
-		game->a = true;
+		g->a = true;
 	else if (key_code == K_D)
-		game->d = true;
+		g->d = true;
 	else if (key_code == K_RIGHT)
-		game->r = true;
+		g->r = true;
 	else if (key_code == K_LEFT)
-		game->l = true;
+		g->l = true;
+	else if (key_code == K_SFT)
+		g->sft = true;
 	return (0);
 }
 
-int	e_keyup(int key_code, t_game *game)
+static int	e_keyup(int key_code, t_game *g)
 {
 	if (key_code == K_UP || key_code == K_W)
-		game->w = false;
+		g->w = false;
 	else if (key_code == K_DOWN || key_code == K_S)
-		game->s = false;
+		g->s = false;
 	else if (key_code == K_A)
-		game->a = false;
+		g->a = false;
 	else if (key_code == K_D)
-		game->d = false;
+		g->d = false;
 	else if (key_code == K_RIGHT)
-		game->r = false;
+		g->r = false;
 	else if (key_code == K_LEFT)
-		game->l = false;
+		g->l = false;
+	else if (key_code == K_SFT)
+		g->sft = false;
 	return (0);
 }
 

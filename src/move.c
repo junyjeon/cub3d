@@ -6,78 +6,76 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:02:30 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 21:37:59 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/20 00:47:15 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static int	moveable(t_game *game, double nx, double ny)
+static int	moveable(t_game *g, double x, double y)
 {
-	int	x;
-	int	y;
+	double	m;
 
-	x = (int)nx;
-	y = (int)ny;
-	if (x < 0 || y < 0 || x >= game->map->row || y >= game->map->col)
-		return (1);
-	if (game->map->map[x][y] == '1')
-		return (0);
-	else
-		return (1);
+	m = 0.05;
+	if (g->map->map[(int)x][(int)y] == '1')
+		return (FALSE);
+	else if (g->map->map[(int)(x + m)][(int)y] == '1')
+		return (FALSE);
+	else if (g->map->map[(int)x][(int)(y + m)] == '1')
+		return (FALSE);
+	else if (g->map->map[(int)(x + m)][(int)(y + m)] == '1')
+		return (FALSE);
+	else if (g->map->map[(int)(x - m)][(int)y] == '1')
+		return (FALSE);
+	else if (g->map->map[(int)x][(int)(y - m)] == '1')
+		return (FALSE);
+	else if (g->map->map[(int)(x - m)][(int)(y + m)] == '1')
+		return (FALSE);
+	else if (g->map->map[(int)(x - m)][(int)(y + m)] == '1')
+		return (FALSE);
+	else if (g->map->map[(int)(x + m)][(int)(y - m)] == '1')
+		return (FALSE);
+	return (TRUE);
 }
 
-static void	move(t_game *g, double angle)
+void	move_w(t_game *g)
+{
+	if (moveable(g, g->px + g->dirx * g->speed, g->py))
+		g->px += g->dirx * g->speed;
+	if (moveable(g, g->px, g->py + g->diry * g->speed))
+		g->py += g->diry * g->speed;
+}
+
+void	move_a(t_game *g)
 {
 	double	nx;
 	double	ny;
 
-	nx = g->px + (g->dirx * cos(angle) - g->diry * sin(angle)) * M_UNIT;
-	ny = g->py + (g->dirx * sin(angle) + g->diry * cos(angle)) * M_UNIT;
-	if (!moveable(g, nx, ny)
-		|| !moveable(g, -nx + g->planex * SPEED, ny + g->planey * SPEED)
-		|| !moveable(g, nx + g->planex * SPEED, ny + g->planey * SPEED)
-		|| !moveable(g, -nx + g->planex * SPEED, ny - g->planey * SPEED)
-		|| !moveable(g, nx + g->planex * SPEED, ny - g->planey * SPEED)
-		|| !moveable(g, nx + g->planex * SPEED, -ny + g->planey * SPEED)
-		|| !moveable(g, -nx + g->planex * SPEED, -ny + g->planey * SPEED)
-		|| !moveable(g, nx - g->planex * SPEED, ny - g->planey * SPEED))
-		return ;
-	g->px = nx;
-	g->py = ny;
+	nx = g->dirx * cos(acos(-1) / 2) - g->diry * sin(acos(-1) / 2);
+	ny = g->dirx * sin(acos(-1) / 2) + g->diry * cos(acos(-1) / 2);
+	if (moveable(g, g->px + nx * g->speed, g->py))
+		g->px += nx * g->speed;
+	if (moveable(g, g->px, g->py + ny * g->speed))
+		g->py += ny * g->speed;
 }
 
-static void	rotate(t_game *g, double angle)
+void	move_s(t_game *g)
 {
-	double	tempx;
-	double	tempy;
-
-	tempx = g->dirx;
-	tempy = g->diry;
-	g->dirx = tempx * cos(angle) - tempy * sin(angle);
-	g->diry = tempx * sin(angle) + tempy * cos(angle);
-	tempx = g->planex;
-	tempy = g->planey;
-	g->planex = tempx * cos(angle) - tempy * sin(angle);
-	g->planey = tempx * sin(angle) + tempy * cos(angle);
+	if (moveable(g, g->px - g->dirx * g->speed, g->py))
+		g->px -= g->dirx * g->speed;
+	if (moveable(g, g->px, g->py - g->diry * g->speed))
+		g->py -= g->diry * g->speed;
 }
 
-void	event_rotation(t_game *g)
+void	move_d(t_game *g)
 {
-	if (g->l)
-		rotate(g, R_UNIT);
-	if (g->r)
-		rotate(g, -R_UNIT);
-}
+	double	nx;
+	double	ny;
 
-void	event_move(t_game *g)
-{
-	if (g->w)
-		move(g, 0);
-	if (g->a)
-		move(g, PI_2);
-	if (g->s)
-		move(g, PI);
-	if (g->d)
-		move(g, -PI_2);
+	nx = g->dirx * cos(acos(-1) / 2) - g->diry * sin(acos(-1) / 2);
+	ny = g->dirx * sin(acos(-1) / 2) + g->diry * cos(acos(-1) / 2);
+	if (moveable(g, g->px - nx * g->speed, g->py))
+		g->px -= nx * g->speed;
+	if (moveable(g, g->px, g->py - ny * g->speed))
+		g->py -= ny * g->speed;
 }

@@ -6,7 +6,7 @@
 #    By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/11 19:23:49 by junyojeo          #+#    #+#              #
-#    Updated: 2023/09/19 18:00:48 by junyojeo         ###   ########seoul.kr   #
+#    Updated: 2023/09/20 01:49:59 by junyojeo         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME		=	cub3D
 
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
-# CFLAGS		+=	-fsanitize=address  --pedantic
-# CFLAGS		+=	-g3
+# CFLAGS		+=	-fsanitize=address
+CFLAGS		+=	-g3 --pedantic
 
 INC_DIR		=	./inc
 
@@ -35,7 +35,7 @@ LDFLAGS		=	-L$(LIBFT_DIR) -lft -L$(GNL_DIR) -lGNL -L$(MLX_DIR) -lmlx
 SRC_DIR		=	src
 BUILD_DIR	=	build
 
-SRC		=	$(addprefix $(SRC_DIR)/, main.c parse.c parse_map.c parse_main.c dfs.c keyhook.c loop.c loop2.c init.c texture.c move.c utils.c)
+SRC		=	$(addprefix $(SRC_DIR)/, main.c parse.c parse_map.c parse_main.c dfs.c key_hook.c key_event.c loop.c loop2.c init.c texture.c move.c utils.c)
 
 OBJ		=	$(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 
@@ -45,7 +45,6 @@ $(NAME): $(OBJ)
 	@make -C $(MLX_DIR)
 	@make -C $(LIBFT_DIR) bonus
 	@make -C $(GNL_DIR)
-	@cp $(MLX_AC) .
 	@$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(MLX_LNK)
 	@echo "$(GREEN)SUCCESS!$(END)"
 
@@ -69,7 +68,7 @@ clean:
 	@$(RM) -r $(BUILD_DIR)
 
 fclean: clean
-	@$(RM) -r $(NAME) $(LIBFT_AC) $(GNL_AC) $(MLX_AC) libmlx.dylib
+	@$(RM) -r $(NAME) $(LIBFT_AC) $(GNL_AC) $(MLX_AC)
 	@echo "${YELLOW}> Cleaning of the cub3D has been done.❌${END}"
 
 re: fclean all

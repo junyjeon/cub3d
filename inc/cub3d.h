@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 21:40:46 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/20 01:56:28 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,19 @@
 # define TEX_WIDTH		64
 # define TEX_HEIGHT		64
 
-# define PI		3.14159265358979323846264338327950288
-# define PI_2	1.57079632679489661923132169163975144
-
-# define SPEED	0.25
-
 # define X_EVENT_KEY_DOWN	2
 # define X_EVENT_KEY_UP		3
 # define X_EVENT_KEY_EXIT   17
 
 /* key */
+# define K_ESC		53
+# define K_SFT		257
+
 # define K_LEFT		123
 # define K_RIGHT	124
 # define K_UP		126
 # define K_DOWN		125
-# define K_ESC		53
+
 # define K_A		0
 # define K_S		1
 # define K_D		2
@@ -62,9 +60,7 @@
 # define MAP    6
 # define END	7
 
-# define M_UNIT			0.1
-# define R_UNIT			0.1
-# define BODY_UNIT		0.1	
+# define R_UNIT			0.05
 
 /* pixel */
 typedef struct s_img
@@ -129,6 +125,7 @@ typedef struct s_game
 	bool	d;
 	bool	l;
 	bool	r;
+	bool	sft;
 
 	double	px;
 	double	py;
@@ -166,6 +163,7 @@ typedef struct s_game
 	int		re_buf;
 	int		**texture;
 	int		color;
+	double	speed;
 }			t_game;
 
 /* parse */
@@ -183,14 +181,15 @@ void		init_map(t_game *game);
 void		init_texture(t_game *g);
 
 /* keyhook */
-int			e_keydown(int key_code, t_game *game);
-int			e_keyup(int key_code, t_game *game);
 int			my_mlx_keyhook(t_game *g);
+void		move_w(t_game *g);
+void		move_a(t_game *g);
+void		move_s(t_game *g);
+void		move_d(t_game *g);
 
 /* move */
 void		event_rotation(t_game *g);
 void		event_move(t_game *g);
-int			event_exit(void);
 
 /* loop */
 int			loop(t_game *g);
