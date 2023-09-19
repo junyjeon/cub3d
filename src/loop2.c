@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:58:42 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 18:01:41 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 19:46:34 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,18 @@ void	other(t_game *g)
 		g->texx = TEX_WIDTH - g->texx - 1;
 	if (g->side == 1 && g->raydiry < 0)
 		g->texx = TEX_WIDTH - g->texx - 1;
-}
-
-void	draw_y(t_game *g, int x)
-{
-	int	y;
-
 	g->step = 1.0 * TEX_HEIGHT / g->lineheight;
 	g->texpos = (g->drawstart - SCREEN_HEIGHT / 2 + g->lineheight / 2) \
 	* g->step;
+}
+
+void	set_vertical_line(t_game *g, int x)
+{
+	int	y;
+
+	y = -1;
+	while (++y < g->drawstart)
+		g->buf[y][x] = g->map->color_ceil;
 	y = g->drawstart;
 	while (++y < g->drawend)
 	{
@@ -60,6 +63,9 @@ void	draw_y(t_game *g, int x)
 		g->buf[y][x] = g->color;
 		g->re_buf = 1;
 	}
+	y = g->drawend;
+	while (++y < SCREEN_HEIGHT)
+		g->buf[y][x] = g->map->color_floor;
 }
 
 void	dda(t_game *g)

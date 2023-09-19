@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 18:01:57 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 19:08:38 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ int			event_exit(void);
 int			loop(t_game *g);
 void		prevent_fisheye_lens(t_game *g);
 void		other(t_game *g);
-void		draw_y(t_game *g, int x);
+void		set_vertical_line(t_game *g, int x);
 void		dda(t_game *g);
 
 /* utils */

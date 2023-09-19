@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:14:36 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 18:02:20 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 19:46:24 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,8 @@ static void	find_side(t_game *g)
 	}
 }
 
-void	tmp_loop(t_game *g)
+static void	update_state(t_game *g)
 {
-	int	x;
-	int	y;
-
-	x = -1;
-	while (++x < SCREEN_HEIGHT)
-	{
-		y = -1;
-		while (++y < SCREEN_WIDTH)
-			g->buf[x][y] = 0xFFA719;
-	}
 	if (g->w || g->a || g->s || g->d)
 		event_move(g);
 	if (g->l || g->r)
@@ -82,7 +72,7 @@ int	loop(t_game *g)
 {
 	int	x;
 
-	tmp_loop(g);
+	update_state(g);
 	x = -1;
 	while (++x < SCREEN_WIDTH)
 	{
@@ -94,7 +84,7 @@ int	loop(t_game *g)
 		dda(g);
 		prevent_fisheye_lens(g);
 		other(g);
-		draw_y(g, x);
+		set_vertical_line(g, x);
 	}
 	draw(g);
 	return (0);
