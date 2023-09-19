@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:56:35 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/20 01:58:29 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/20 01:58:54 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,3 @@ int	main(int argc, char **argv)
 	my_mlx_keyhook(&game);
 	mlx_loop(game.mlx);
 }
-

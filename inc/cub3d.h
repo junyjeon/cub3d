@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/20 01:56:28 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/20 03:33:54 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 # define MAP    6
 # define END	7
 
-# define R_UNIT			0.05
+# define ROTATE_SPEED	0.1
 
 /* pixel */
 typedef struct s_img
@@ -108,7 +108,6 @@ typedef struct s_map
 	int			color_ceil;
 	int			row;
 	int			col;
-	int			*row_len;
 }			t_map;
 
 /* Structure for the game state */
@@ -199,8 +198,7 @@ void		set_vertical_line(t_game *g, int x);
 void		dda(t_game *g);
 
 /* utils */
-int			ft_put_err(char *s);
-void		err(t_map *map, char *message);
+void		err(char *s);
 void		check_argc(int argc);
 void		free_split(char **split);
 

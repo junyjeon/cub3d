@@ -144,5 +144,11 @@ parse_map보기
 
 끝
 
+**texture
+**map
 
+int			**visited;
+char		**map;
+char		*tmp_map;
 
+ㄱㅏ

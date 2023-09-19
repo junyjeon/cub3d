@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 03:28:50 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 17:10:15 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/20 03:35:51 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ char	*join_all_lines(char *line, char *s2)
 		return (ft_strdup(s2));
 	tmp = ft_strjoin(line, "\n");
 	free(line);
+	line = NULL;
 	all_line = ft_strjoin(tmp, s2);
 	free(tmp);
+	tmp = NULL;
 	return (all_line);
 }
 
@@ -46,10 +48,10 @@ static int	check_file_extension(char *argv)
 	int	fd;
 
 	if (ft_strncmp(argv + ft_strlen(argv) - 4, ".cub", 4))
-		return (ft_put_err("Error"));
+		err("Error");
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
-		return (ft_put_err("Error"));
+		err("Error");
 	return (fd);
 }
 
@@ -64,6 +66,7 @@ static char	**pre_processing(char *argv)
 	read_file(fd, &all_lines);
 	lines = ft_split(all_lines, '\n');
 	free(all_lines);
+	all_lines = NULL;
 	return (lines);
 }
 
@@ -74,5 +77,6 @@ void	parse(t_map *map, char *argv)
 	lines = pre_processing(argv);
 	main_processing(map, lines);
 	free(lines);
+	lines = NULL;
 	parse_map(map);
 }

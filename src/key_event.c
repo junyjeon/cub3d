@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 00:43:46 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/20 01:58:09 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/20 03:21:40 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static void	rotate(t_game *g, double angle)
 void	event_rotation(t_game *g)
 {
 	if (g->l)
-		rotate(g, R_UNIT);
+		rotate(g, ROTATE_SPEED);
 	if (g->r)
-		rotate(g, -R_UNIT);
+		rotate(g, -ROTATE_SPEED);
 }
 
 void	event_move(t_game *g)

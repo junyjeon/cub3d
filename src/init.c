@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 16:15:07 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/20 00:41:24 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/20 03:34:49 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,9 @@ void	init_map(t_game *game)
 
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
-		err(map, "Map malloc failed.");
+		err("Map malloc failed.");
 	ft_memset(map, 0, sizeof(t_map));
 	game->map = map;
-}
-
-static void	init_img(t_game *g)
-{
-	g->screen.img = mlx_new_image(g->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	if (!g->screen.img)
-		err(g->map, "Invalid screen img");
-	g->screen.data = (int *)mlx_get_data_addr(g->screen.img,
-			&g->screen.bpp, &g->screen.line_len, &g->screen.endian);
-	if (!g->screen.data)
-		err(g->map, "Invalid screen data");
-}
-
-static void	init_mlx_win(t_game *g)
-{
-	g->mlx = mlx_init();
-	if (!g->mlx)
-		err(g->map, "Invalid mlx_init");
-	g->win = mlx_new_window(g->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "CUB_3D");
-	if (!g->win)
-		err(g->map, "Invalid win_init");
 }
 
 static void	init_game(t_game *g)
@@ -59,6 +38,27 @@ static void	init_game(t_game *g)
 	g->planex = g->map->player.planex;
 	g->planey = g->map->player.planey;
 	g->speed = 0.1;
+}
+
+static void	init_img(t_game *g)
+{
+	g->screen.img = mlx_new_image(g->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if (!g->screen.img)
+		err("Invalid screen.img");
+	g->screen.data = (int *)mlx_get_data_addr(g->screen.img,
+			&g->screen.bpp, &g->screen.line_len, &g->screen.endian);
+	if (!g->screen.data)
+		err("Invalid screen.data");
+}
+
+static void	init_mlx_win(t_game *g)
+{
+	g->mlx = mlx_init();
+	if (!g->mlx)
+		err("Invalid mlx_init");
+	g->win = mlx_new_window(g->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "CUB_3D");
+	if (!g->win)
+		err("Invalid win_init");
 }
 
 void	init(t_game *g)

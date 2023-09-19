@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:03:27 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/20 00:06:57 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/20 03:50:04 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ static void	init_player(t_map *map, int x, int y)
 
 	angle = 0.0;
 	if (map->player.start_sight)
-		err(map, "Invalid Player Data");
+		err("Invalid Player Data");
 	else
 		map->player.start_sight = map->map[x][y];
 	map->player.posx = (double)x + 0.5;
 	map->player.posy = (double)y + 0.5;
 	if (map->map[x][y] == 'N')
-		angle = acos(-1) / 2;
-	else if (map->map[x][y] == 'E')
 		angle = acos(-1);
+	else if (map->map[x][y] == 'E')
+		angle = acos(-1) / 2;
 	else if (map->map[x][y] == 'S')
 		angle = 0;
 	else
@@ -44,23 +44,19 @@ static int	**create_visited(t_map *map)
 
 	visited = (int **)malloc(sizeof(int *) * map->row);
 	if (!visited)
-		err(map, "Malloc Fail visited");
-	map->row_len = (int *)malloc(sizeof(int) * map->row);
-	if (!map->row_len)
-		err(map, "Malloc Fail row_len");
+		err("Malloc Fail visited");
 	i = -1;
 	while (++i < map->row)
 	{
-		map->row_len[i] = ft_strlen(map->map[i]);
-		visited[i] = (int *)malloc(sizeof(int) * map->row_len[i]);
+		visited[i] = (int *)malloc(sizeof(int) * ft_strlen(map->map[i]));
 		if (!visited[i])
 		{
 			while (i--)
 				free(visited[i]);
 			free(visited);
-			err(map, "Malloc Fail");
+			err("Malloc Fail");
 		}
-		memset(visited[i], 0, sizeof(int) * map->row_len[i]);
+		memset(visited[i], 0, sizeof(int) * ft_strlen(map->map[i]));
 	}
 	return (visited);
 }
@@ -88,7 +84,7 @@ static void	parse_map_line(t_map *map)
 		}
 	}
 	if (!map->player.start_sight)
-		err(map, "Invalid Player Data");
+		err("Invalid Player Data");
 	map->row = x;
 	map->col = max_col;
 }
@@ -97,7 +93,7 @@ void	parse_map(t_map *map)
 {
 	map->map = ft_split(map->tmp_map, '\n');
 	if (map->map == NULL)
-		err(map, "Map Allocation Fail");
+		err("Map Allocation Fail");
 	free(map->tmp_map);
 	map->tmp_map = NULL;
 	parse_map_line(map);
