@@ -6,7 +6,7 @@
 #    By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/11 19:23:49 by junyojeo          #+#    #+#              #
-#    Updated: 2023/09/20 03:37:58 by junyojeo         ###   ########seoul.kr   #
+#    Updated: 2023/09/20 03:54:45 by junyojeo         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME		=	cub3D
 
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
-CFLAGS		+=	-fsanitize=address
-CFLAGS		+=	-g3 --pedantic
+# CFLAGS		+=	-fsanitize=address
+# CFLAGS		+=	-g3 --pedantic
 
 INC_DIR		=	./inc
 
