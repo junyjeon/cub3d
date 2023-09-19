@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:58:42 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 19:46:34 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 21:32:43 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	prevent_fisheye_lens(t_game *g)
 		g->perpwalldist = (g->mapy - g->py + (1 - g->stepy) / 2) / g->raydiry;
 }
 
-void	other(t_game *g)
+void	calc_wall(t_game *g)
 {
 	g->lineheight = (int)(SCREEN_HEIGHT / g->perpwalldist);
 	g->drawstart = -g->lineheight / 2 + SCREEN_HEIGHT / 2;
@@ -31,7 +31,7 @@ void	other(t_game *g)
 		g->drawend = SCREEN_HEIGHT - 1;
 	g->texnum = g->map->map[g->mapx][g->mapy] - '0';
 	if (g->side == 0)
-		g->wallx = g->py * g->perpwalldist * g->raydiry;
+		g->wallx = g->py + g->perpwalldist * g->raydiry;
 	else
 		g->wallx = g->px + g->perpwalldist * g->raydirx;
 	g->wallx -= floor(g->wallx);
@@ -57,7 +57,7 @@ void	set_vertical_line(t_game *g, int x)
 	{
 		g->texy = (int)g->texpos & (TEX_HEIGHT - 1);
 		g->texpos += g->step;
-		g->color = g->texture[g->texnum][TEX_HEIGHT * g->texy + g->texx];
+		g->color = g->texture[g->texnum][TEX_WIDTH * g->texy + g->texx];
 		if (g->side == 1)
 			g->color = (g->color >> 1) & 8355711;
 		g->buf[y][x] = g->color;

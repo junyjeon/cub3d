@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 18:14:36 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 19:46:24 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 21:41:12 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	loop(t_game *g)
 		find_side(g);
 		dda(g);
 		prevent_fisheye_lens(g);
-		other(g);
+		calc_wall(g);
 		set_vertical_line(g, x);
 	}
 	draw(g);

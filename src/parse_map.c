@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:03:27 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 18:02:27 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 19:58:06 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	init_player(t_map *map, int x, int y)
 		err(map, "Invalid Player Data");
 	else
 		map->player.start_sight = map->map[x][y];
-	map->player.posx = (double)x;
-	map->player.posy = (double)y;
+	map->player.posx = (double)x + 0.5;
+	map->player.posy = (double)y + 0.5;
 	if (map->map[x][y] == 'N')
 		angle = PI;
 	else if (map->map[x][y] == 'E')

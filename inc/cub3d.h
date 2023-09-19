@@ -6,23 +6,22 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:41:34 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 19:08:38 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 21:40:46 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdbool.h>
 # include <unistd.h>
+# include <math.h>
+# include <string.h>
 # include "../lib/get_next_line/get_next_line.h"
 # include "../lib/libft/libft.h"
 # include "../lib/minilibx_opengl_20191021/mlx.h"
-# include <math.h>
-# include <string.h>
 
 # define SCREEN_WIDTH	640
 # define SCREEN_HEIGHT	480
@@ -30,17 +29,10 @@
 # define TEX_WIDTH		64
 # define TEX_HEIGHT		64
 
-# define MINIMAP_SCALE	1
-
-# define FALSE  0
-# define TRUE  	1
-
-# define EMPTY_LINE -2
-# define ERROR      -1
-# define SUCCESS    1
-
 # define PI		3.14159265358979323846264338327950288
 # define PI_2	1.57079632679489661923132169163975144
+
+# define SPEED	0.25
 
 # define X_EVENT_KEY_DOWN	2
 # define X_EVENT_KEY_UP		3
@@ -56,7 +48,9 @@
 # define K_S		1
 # define K_D		2
 # define K_W		13
-# define K_F		3
+
+# define FALSE  0
+# define TRUE  	1
 
 /* texture */
 # define NO     0
@@ -68,7 +62,6 @@
 # define MAP    6
 # define END	7
 
-# define NO_COLOR       -1
 # define M_UNIT			0.1
 # define R_UNIT			0.1
 # define BODY_UNIT		0.1	
@@ -128,11 +121,8 @@ typedef struct s_game
 	void	*mlx;
 	void	*win;
 	t_map	*map;
-	t_img	wall;
 	t_img	screen;
-	t_img	minimap;
 
-	int		mousemode;
 	bool	w;
 	bool	a;
 	bool	s;
@@ -161,24 +151,17 @@ typedef struct s_game
 	int		stepy;
 	int		hit;
 	int		side;
+
 	int		lineheight;
 	int		drawstart;
 	int		drawend;
-
 	double	wallx;
 	int		texx;
 	int		texy;
 	int		texnum;
-
 	double	step;
 	double	texpos;
-	int		miniw;
-	int		minih;
-	int		gridw;
-	int		gridh;
 
-	double	movespeed;
-	double	rotspeed;
 	int		buf[SCREEN_HEIGHT][SCREEN_WIDTH];
 	int		re_buf;
 	int		**texture;
@@ -212,7 +195,7 @@ int			event_exit(void);
 /* loop */
 int			loop(t_game *g);
 void		prevent_fisheye_lens(t_game *g);
-void		other(t_game *g);
+void		calc_wall(t_game *g);
 void		set_vertical_line(t_game *g, int x);
 void		dda(t_game *g);
 

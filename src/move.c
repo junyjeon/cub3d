@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:02:30 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/19 17:08:40 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/19 21:37:59 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ static void	move(t_game *g, double angle)
 	nx = g->px + (g->dirx * cos(angle) - g->diry * sin(angle)) * M_UNIT;
 	ny = g->py + (g->dirx * sin(angle) + g->diry * cos(angle)) * M_UNIT;
 	if (!moveable(g, nx, ny)
-		|| !moveable(g, -nx + g->planex * 0.25, ny + g->planey * 0.25)
-		|| !moveable(g, nx + g->planex * 0.25, ny + g->planey * 0.25)
-		|| !moveable(g, -nx + g->planex * 0.25, ny - g->planey * 0.25)
-		|| !moveable(g, nx + g->planex * 0.25, ny - g->planey * 0.25)
-		|| !moveable(g, nx + g->planex * 0.25, -ny + g->planey * 0.25)
-		|| !moveable(g, -nx + g->planex * 0.25, -ny + g->planey * 0.25)
-		|| !moveable(g, nx - g->planex * 0.25, ny - g->planey * 0.25))
+		|| !moveable(g, -nx + g->planex * SPEED, ny + g->planey * SPEED)
+		|| !moveable(g, nx + g->planex * SPEED, ny + g->planey * SPEED)
+		|| !moveable(g, -nx + g->planex * SPEED, ny - g->planey * SPEED)
+		|| !moveable(g, nx + g->planex * SPEED, ny - g->planey * SPEED)
+		|| !moveable(g, nx + g->planex * SPEED, -ny + g->planey * SPEED)
+		|| !moveable(g, -nx + g->planex * SPEED, -ny + g->planey * SPEED)
+		|| !moveable(g, nx - g->planex * SPEED, ny - g->planey * SPEED))
 		return ;
 	g->px = nx;
 	g->py = ny;
@@ -75,9 +75,9 @@ void	event_move(t_game *g)
 	if (g->w)
 		move(g, 0);
 	if (g->a)
-		move(g, M_PI_2);
+		move(g, PI_2);
 	if (g->s)
-		move(g, M_PI);
+		move(g, PI);
 	if (g->d)
-		move(g, -M_PI_2);
+		move(g, -PI_2);
 }
