@@ -6,7 +6,7 @@
 /*   By: junyojeo <junyojeo@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:03:27 by junyojeo          #+#    #+#             */
-/*   Updated: 2023/09/20 03:50:04 by junyojeo         ###   ########seoul.kr  */
+/*   Updated: 2023/09/20 09:08:15 by junyojeo         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ static void	parse_map_line(t_map *map)
 			if (map->map[x][y] == 'N' || map->map[x][y] == 'S'\
 			|| map->map[x][y] == 'E' || map->map[x][y] == 'W')
 				init_player(map, x, y);
+			else if (ft_strchr("01NSWE ", map->map[x][y]))
+				err("Invalid data");
 		}
 	}
 	if (!map->player.start_sight)
