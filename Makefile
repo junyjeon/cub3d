@@ -14,8 +14,8 @@ NAME		=	cub3D
 
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
-# CFLAGS		+=	-fsanitize=address
-# CFLAGS		+=	-g3 --pedantic
+CFLAGS		+=	-fsanitize=address
+CFLAGS		+=	-g3 --pedantic
 
 INC_DIR		=	./inc
 

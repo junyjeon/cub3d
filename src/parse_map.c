@@ -12,9 +12,9 @@
 
 #include "../inc/cub3d.h"
 
-static void	init_player(t_map *map, int x, int y)
+static void init_player(t_map *map, int x, int y)
 {
-	double	angle;
+	double angle;
 
 	angle = 0.0;
 	if (map->player.start_sight)
@@ -37,10 +37,10 @@ static void	init_player(t_map *map, int x, int y)
 	map->player.planey = 0.66 * sin(angle - acos(-1) / 2);
 }
 
-static int	**create_visited(t_map *map)
+static int **create_visited(t_map *map)
 {
-	int	**visited;
-	int	i;
+	int **visited;
+	int i;
 
 	visited = (int **)malloc(sizeof(int *) * map->row);
 	if (!visited)
@@ -61,12 +61,12 @@ static int	**create_visited(t_map *map)
 	return (visited);
 }
 
-static void	parse_map_line(t_map *map)
+static void parse_map_line(t_map *map)
 {
-	int	x;
-	int	y;
-	int	max_col;
-	int	len;
+	int x;
+	int y;
+	int max_col;
+	int len;
 
 	max_col = 0;
 	x = -1;
@@ -78,10 +78,9 @@ static void	parse_map_line(t_map *map)
 		y = -1;
 		while (map->map[x][++y])
 		{
-			if (map->map[x][y] == 'N' || map->map[x][y] == 'S'\
-			|| map->map[x][y] == 'E' || map->map[x][y] == 'W')
+			if (map->map[x][y] == 'N' || map->map[x][y] == 'S' || map->map[x][y] == 'E' || map->map[x][y] == 'W')
 				init_player(map, x, y);
-			else if (ft_strchr("01NSWE ", map->map[x][y]))
+			else if (!ft_strchr("01NSWE ", map->map[x][y]))
 				err("Invalid data");
 		}
 	}
@@ -91,7 +90,7 @@ static void	parse_map_line(t_map *map)
 	map->col = max_col;
 }
 
-void	parse_map(t_map *map)
+void parse_map(t_map *map)
 {
 	map->map = ft_split(map->tmp_map, '\n');
 	if (map->map == NULL)

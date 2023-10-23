@@ -12,10 +12,10 @@
 
 #include "../inc/cub3d.h"
 
-static void	draw(t_game *g)
+static void draw(t_game *g)
 {
-	int	x;
-	int	y;
+	int x;
+	int y;
 
 	x = -1;
 	while (++x < SCREEN_HEIGHT)
@@ -25,9 +25,16 @@ static void	draw(t_game *g)
 			g->screen.data[x * SCREEN_WIDTH + y] = g->buf[x][y];
 	}
 	mlx_put_image_to_window(g->mlx, g->win, g->screen.img, 0, 0);
-}
+	// mlx_put_image_to_window(g->mlx, g->win, g->.img, 0, 0); // 미니맵 띄우기
+	// static int i = 0;
+	// image를 (i / 20) % 5 => 반쩨 이미지.
+	// mlx_put_image_to_window(g->mlx, g->win, g->hand.img, 0, 0);
+} // 스프라이트 이미지
+// 미니맵
+//  문
+//  마우스
 
-static void	find_side(t_game *g)
+static void find_side(t_game *g)
 {
 	if (g->raydirx < 0)
 	{
@@ -51,7 +58,7 @@ static void	find_side(t_game *g)
 	}
 }
 
-static void	triangle_dist(t_game *g)
+static void triangle_dist(t_game *g)
 {
 	g->mapx = (int)g->px;
 	g->mapy = (int)g->py;
@@ -60,7 +67,7 @@ static void	triangle_dist(t_game *g)
 	g->hit = 0;
 }
 
-static void	update_state(t_game *g)
+static void update_state(t_game *g)
 {
 	if (g->w || g->a || g->s || g->d)
 		event_move(g);
@@ -68,9 +75,9 @@ static void	update_state(t_game *g)
 		event_rotation(g);
 }
 
-int	loop(t_game *g)
+int loop(t_game *g)
 {
-	int	x;
+	int x;
 
 	update_state(g);
 	x = -1;
