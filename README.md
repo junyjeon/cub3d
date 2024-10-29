@@ -192,13 +192,13 @@ static int	check_map_closed(char **map, t_point size, t_point curr)
 #### Texture
 • 텍스처 처리
 <div align="center">
-  <img src="assets/raycasttexture1.png" alt="Texture Mapping" width="600"/>
+  <img src="assets/raycasttexture1.png" alt="Texture Mapping" width="200"/>
 </div>
 <div align="center">
-  <img src="assets/raycasttexture2.png" alt="Texture Mapping" width="600"/>
+  <img src="assets/raycasttexture2.png" alt="Texture Mapping" width="300"/>
 </div>
 <div align="center">
-  <img src="assets/raycasttexture3.png" alt="Texture Mapping" width="600"/>
+  <img src="assets/raycasttexture3.png" alt="Texture Mapping" width="400"/>
 </div>
   - XPM 파일 로드
   - UV 좌표 계산
