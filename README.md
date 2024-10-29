@@ -3,7 +3,7 @@
 <div align="center">
   <img src="assets/11_cub3d_review.jpg" alt="cub3D Review" width="800"/>
   
-  [![42 Score](https://img.shields.io/badge/Score-100%2F100-success?style=for-the-badge&logo=42)](https://github.com/your-username/cub3d)
+  [![42 Score](https://img.shields.io/badge/Score-101%2F100-success?style=for-the-badge&logo=42)](https://github.com/your-username/cub3d)
 </div>
 
 ## Table of Contents
