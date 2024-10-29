@@ -112,12 +112,9 @@ static int	check_map_closed(char **map, t_point size, t_point curr)
   <img src="assets/raycasthit.png" alt="Raycasting Principle" width="300"/>
   <img src="assets/raycastdelta.png" alt="Raycasting Principle" width="300"/>
 </div>
-
-• 기본 원리
-  - 시야각(FOV)만큼 광선 발사
-  - 각 광선이 벽과 만나는 지점 계산
-  - DDA 알고리즘으로 거리 계산
-  - 거리에 따라 벽 높이 결정
+<div align="center">
+  시야각(FOV)만큼 광선 발사 -> 각 광선이 벽과 만나는 지점 계산 -> DDA 알고리즘으로 거리 계산 -> 거리에 따라 벽 높이 결정
+</div>
 
 • 구현 단계
   1. 플레이어 위치/방향 설정
@@ -195,8 +192,6 @@ static int	check_map_closed(char **map, t_point size, t_point curr)
 <div align="center">
   XPM 파일 로드 -> UV 좌표 계산 -> 벽면에 텍스처 매핑 -> 거리에 따른 음영 처리
 </div>
-
-• 텍스처 처리
 
 • 구현 요소
   - 텍스처 로드
