@@ -109,13 +109,9 @@ static int	check_map_closed(char **map, t_point size, t_point curr)
 #### Raycasting
 • 기본 원리
 <div align="center">
-  <img src="assets/raycastgrid.png" alt="Raycasting Principle" width="600"/>
-</div>
-<div align="center">
-  <img src="assets/raycasthit.png" alt="Raycasting Principle" width="600"/>
-</div>
-<div align="center">
-  <img src="assets/raycastdelta.png" alt="Raycasting Principle" width="600"/>
+  <img src="assets/raycastgrid.png" alt="Raycasting Principle" width="300"/>
+  <img src="assets/raycasthit.png" alt="Raycasting Principle" width="300"/>
+  <img src="assets/raycastdelta.png" alt="Raycasting Principle" width="300"/>
 </div>
   - 시야각(FOV)만큼 광선 발사
   - 각 광선이 벽과 만나는 지점 계산
@@ -192,13 +188,9 @@ static int	check_map_closed(char **map, t_point size, t_point curr)
 #### Texture
 • 텍스처 처리
 <div align="center">
-  <img src="assets/raycasttexture1.png" alt="Texture Mapping" width="200"/>
-</div>
-<div align="center">
+  <img src="assets/raycasttexture1.png" alt="Texture Mapping" width="300"/>
   <img src="assets/raycasttexture2.png" alt="Texture Mapping" width="300"/>
-</div>
-<div align="center">
-  <img src="assets/raycasttexture3.png" alt="Texture Mapping" width="400"/>
+  <img src="assets/raycasttexture3.png" alt="Texture Mapping" width="300"/>
 </div>
   - XPM 파일 로드
   - UV 좌표 계산
