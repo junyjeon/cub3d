@@ -194,7 +194,7 @@ static int	check_map_closed(char **map, t_point size, t_point curr)
 </div>
 
 • 텍스처 처리
-  XPM 파일 로드 -> UV 좌표 계산 -> 벽면에 텍스처 매핑 -> 거리에 따른 음영 처리
+  - XPM 파일 로드 -> UV 좌표 계산 -> 벽면에 텍스처 매핑 -> 거리에 따른 음영 처리
 
 • 구현 요소
   - 텍스처 로드
