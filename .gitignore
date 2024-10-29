@@ -56,7 +56,6 @@ dkms.conf
 .vscode
 build/
 fdf
-README.md
 image.png
 doc.md
 *.cub
