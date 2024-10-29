@@ -114,6 +114,8 @@ static int	check_map_closed(char **map, t_point size, t_point curr)
 </div>
 <div align="center">
 기본원리:
+</div>
+<div align="center">
   시야각(FOV)만큼 광선 발사 -> 각 광선이 벽과 만나는 지점 계산 -> DDA 알고리즘으로 거리 계산 -> 거리에 따라 벽 높이 결정
 </div>
 
