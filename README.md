@@ -1,11 +1,20 @@
-# cub3D
-
 <div align="center">
+  <h1>🎮 cub3D</h1>
+  <p>레이캐스팅 기반 3D 게임 엔진 | Wolfenstein 3D 스타일</p>
+
   <img src="assets/11_cub3d_review.jpg" alt="cub3D Review" width="800"/>
   
-  [![42 Score](https://img.shields.io/badge/Score-101%2F100-success?style=for-the-badge&logo=42)](https://github.com/junyjeon/cub3d)
-  [![Norminette](https://img.shields.io/badge/Norminette-passing-brightgreen?style=for-the-badge)](https://github.com/42School/norminette)
-  [![C](https://img.shields.io/badge/C-99-blue.svg?style=for-the-badge&logo=c)](https://github.com/junyjeon/cub3d)
+  <div>
+    <img src="https://img.shields.io/badge/Score-101%2F100-success?style=flat-square&logo=42" alt="42 Score"/>
+    <img src="https://img.shields.io/badge/Language-C-00599C?style=flat-square&logo=c" alt="Language"/>
+    <img src="https://img.shields.io/badge/Norminette-Passing-brightgreen?style=flat-square" alt="Norm"/>
+  </div>
+
+  ### 주요 기능
+  - 레이캐스팅 기반 3D 렌더링
+  - 텍스처 매핑 및 벽 충돌 처리
+  - WASD 키보드 이동 및 마우스 시점 회전
+  - 커스텀 맵 파일(.cub) 지원
 </div>
 
 ## 목차
