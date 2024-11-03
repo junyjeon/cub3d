@@ -4,28 +4,29 @@
   <img src="assets/11_cub3d_review.jpg" alt="cub3D Review" width="800"/>
   
   [![42 Score](https://img.shields.io/badge/Score-101%2F100-success?style=for-the-badge&logo=42)](https://github.com/junyjeon/cub3d)
+  [![Norminette](https://img.shields.io/badge/Norminette-passing-brightgreen?style=for-the-badge)](https://github.com/42School/norminette)
   [![C](https://img.shields.io/badge/C-99-blue.svg?style=for-the-badge&logo=c)](https://github.com/junyjeon/cub3d)
 </div>
 
-## Table of Contents
-- [About](#about)
-- [Requirements](#requirements)
-- [Implementation](#implementation)
+## 목차
+- [개요](#개요)
+- [요구사항](#요구사항)
+- [구현](#구현)
   - [Map Parsing](#map-parsing)
   - [Raycasting](#raycasting)
   - [Texture](#texture)
   - [Movement](#movement)
-- [Optimization & Debug](#optimization--debug)
-  - [Performance Tips](#performance-tips)
-  - [Debug Tips](#debug-tips)
-- [Usage](#usage)
-- [Reference](#reference)
+- [최적화 & 디버그](#최적화--디버그)
+  - [성능 팁](#성능-팁)
+  - [디버그 팁](#디버그-팁)
+- [사용법](#사용법)
+- [참고 자료](#참고-자료)
 
-### 🗣️ About
+### 🗣️ 개요
 Wolfenstein 3D 게임을 레이캐스팅(Raycasting) 기술을 사용해 구현하는 과제입니다.
 2D 맵을 3D 시점으로 변환하고 텍스처를 입혀 실제 게임처럼 만듭니다.
 
-### Requirements
+### 요구사항
 • 필수 구현
   - 벽 충돌
   - 다른 색상의 벽면
@@ -37,7 +38,7 @@ Wolfenstein 3D 게임을 레이캐스팅(Raycasting) 기술을 사용해 구현�
   - 맵은 벽으로 둘러싸여야 함
   - 맵 파일 확장자: .cub
 
-### Implementation
+### 구현
 #### Map Parsing
 • 맵 파일 구조
 ```
@@ -319,8 +320,8 @@ void render_frame(t_game *game)
   - 회전 처리
   - 부드러운 움직임
 
-### Optimization & Debug
-#### Performance Tips
+### 최적화 & 디버그
+#### 성능 최적화
 • 연산 최적화
 ```c
 // 1. 나눗셈 대신 곱셈 사용
@@ -365,7 +366,7 @@ void    init_textures(t_game *game)
 }
 ```
 
-#### Debug Tips
+#### 디버깅
 • 맵 디버깅
 ```c
 // 2D 맵 시각화
@@ -408,7 +409,7 @@ void    show_fps(t_game *game)
 }
 ```
 
-### Usage
+### 사용법
 • 컴파일
 ```bash
 make
@@ -442,7 +443,7 @@ C 225,30,0                  # 천장 색상 (RGB)
   - ←, →: 시점 회전
   - ESC: 종료
 
-### Reference
+### 참고 자료
 • 레이캐스팅 학습
   - [Lode's Computer Graphics Tutorial](https://lodev.org/cgtutor/raycasting.html)
   - [Ray-Casting Tutorial For Game Development](https://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/)
